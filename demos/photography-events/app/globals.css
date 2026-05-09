@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Photography Portfolio — Pure Editorial Gallery (Hebrew RTL)
+   Style: Awwwards-tier · monochrome · custom cursor · Lenis smooth scroll
+   ========================================================================== */
+
+@theme inline {
+  --color-bg: oklch(0.97 0.005 90);              /* paper cream */
+  --color-bg-2: oklch(0.99 0.003 90);
+  --color-fg: oklch(0.14 0 0);                   /* near-black */
+  --color-fg-muted: oklch(0.42 0 0);
+  --color-fg-subtle: oklch(0.62 0 0);
+  --color-hairline: oklch(0.88 0.005 90);
+  --color-noir: oklch(0.08 0 0);
+  --color-noir-2: oklch(0.18 0 0);
+  --color-press: oklch(0.55 0 0);
+
+  --font-sans: var(--font-heebo), -apple-system, sans-serif;
+  --font-display: var(--font-cormorant), var(--font-frank-ruhl), Georgia, serif;
+  --font-serif: var(--font-frank-ruhl), Georgia, serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+html { background: var(--color-bg); color: var(--color-fg); -webkit-font-smoothing: antialiased; }
+body { background: var(--color-bg); }
+
+/* ==========================================================================
+   Hide native cursor everywhere (custom cursor takes over)
+   ========================================================================== */
+* { cursor: none !important; }
+@media (hover: none) { * { cursor: auto !important; } }
+
+/* ==========================================================================
+   Custom Cursor
+   ========================================================================== */
+.cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--color-fg);
+  pointer-events: none;
+  z-index: 100;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              background 0.3s ease;
+  mix-blend-mode: difference;
+  filter: invert(1);
+}
+.cursor-dot.is-hover-link {
+  width: 64px;
+  height: 64px;
+  background: var(--color-fg);
+  mix-blend-mode: difference;
+}
+.cursor-dot.is-hover-image {
+  width: 100px;
+  height: 100px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-fg);
+  mix-blend-mode: normal;
+}
+.cursor-label {
+  position: fixed;
+  pointer-events: none;
+  z-index: 100;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-bg);
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.cursor-label.is-visible { opacity: 1; }
+@media (hover: none) {
+  .cursor-dot, .cursor-label { display: none !important; }
+}
+
+/* ==========================================================================
+   Lenis smooth scroll fixes
+   ========================================================================== */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* ==========================================================================
+   Display utilities
+   ========================================================================== */
+.font-display { font-family: var(--font-display); }
+.font-serif { font-family: var(--font-serif); }
+.italic-display { font-family: var(--font-display); font-style: italic; font-weight: 400; }
+.font-mono { font-family: var(--font-mono); }
+
+/* ==========================================================================
+   Kinetic typography reveal (split-by-word, fade+rise)
+   ========================================================================== */
+.kinetic-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.6em) skewY(4deg);
+  transition: opacity 800ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.kinetic-word.is-visible {
+  opacity: 1;
+  transform: translateY(0) skewY(0);
+}
+
+/* ==========================================================================
+   Hover-image distortion (CSS-based, no shader)
+   ========================================================================== */
+.hover-distort {
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+              filter 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.hover-distort:hover {
+  transform: scale(1.05);
+  filter: contrast(1.05) saturate(1.1);
+}
+
+/* ==========================================================================
+   Reveal-on-scroll
+   ========================================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 1000ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 1000ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ==========================================================================
+   Slow Ken-Burns
+   ========================================================================== */
+@keyframes kenburns {
+  0% { transform: scale(1) translateX(0); }
+  100% { transform: scale(1.08) translateX(-1%); }
+}
+.ken-burns { animation: kenburns 18s ease-out infinite alternate; }
+
+/* ==========================================================================
+   Marquee (horizontal scroll for press logos)
+   ========================================================================== */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee { animation: marquee 32s linear infinite; }
+[dir="rtl"] .marquee { animation-direction: reverse; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .kinetic-word { opacity: 1; transform: none; transition: none; }
+  .ken-burns { animation: none; }
+  .marquee { animation: none; }
+}
+
+/* ==========================================================================
+   Image-color simulation utilities (atmospheric gradients in lieu of photos)
+   ========================================================================== */
+.photo-golden {
+  background: radial-gradient(ellipse at 30% 40%, oklch(0.85 0.08 70 / 0.95), transparent 55%),
+              radial-gradient(ellipse at 70% 60%, oklch(0.62 0.10 35 / 0.9), transparent 60%),
+              linear-gradient(135deg, oklch(0.45 0.06 50) 0%, oklch(0.18 0.02 30) 100%);
+}
+.photo-blue {
+  background: radial-gradient(ellipse at 50% 30%, oklch(0.70 0.06 240 / 0.7), transparent 60%),
+              radial-gradient(ellipse at 30% 70%, oklch(0.40 0.08 280 / 0.8), transparent 60%),
+              linear-gradient(180deg, oklch(0.30 0.05 250) 0%, oklch(0.12 0.04 250) 100%);
+}
+.photo-candle {
+  background: radial-gradient(ellipse at 50% 50%, oklch(0.78 0.12 60 / 0.7), transparent 50%),
+              linear-gradient(180deg, oklch(0.20 0.04 30) 0%, oklch(0.10 0.02 30) 100%);
+}
+.photo-bw {
+  background: linear-gradient(135deg, oklch(0.92 0 0) 0%, oklch(0.55 0 0) 50%, oklch(0.20 0 0) 100%);
+}
+.photo-rose {
+  background: radial-gradient(ellipse at 40% 30%, oklch(0.85 0.08 20 / 0.7), transparent 60%),
+              radial-gradient(ellipse at 70% 80%, oklch(0.65 0.05 15 / 0.7), transparent 60%),
+              linear-gradient(135deg, oklch(0.78 0.06 25) 0%, oklch(0.40 0.05 20) 100%);
+}
+.photo-sage {
+  background: radial-gradient(ellipse at 60% 50%, oklch(0.82 0.05 130 / 0.7), transparent 60%),
+              linear-gradient(135deg, oklch(0.55 0.05 130) 0%, oklch(0.25 0.04 130) 100%);
+}
+.photo-noir {
+  background: radial-gradient(ellipse at 30% 60%, oklch(0.18 0 0 / 0.7), transparent 60%),
+              linear-gradient(180deg, oklch(0.12 0 0) 0%, oklch(0.04 0 0) 100%);
+}
+.photo-honey {
+  background: radial-gradient(ellipse at 50% 40%, oklch(0.85 0.13 85 / 0.7), transparent 55%),
+              linear-gradient(135deg, oklch(0.65 0.10 75) 0%, oklch(0.30 0.06 50) 100%);
+}
+.photo-ivory {
+  background: radial-gradient(ellipse at 40% 50%, oklch(0.95 0.02 80 / 0.95), transparent 60%),
+              linear-gradient(180deg, oklch(0.88 0.03 80) 0%, oklch(0.55 0.06 70) 100%);
+}
