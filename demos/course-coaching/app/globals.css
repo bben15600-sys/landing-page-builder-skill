@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Course / Coaching — High-Conversion (Hormozi-style)
+   Hebrew RTL · yellow + black + alarm red
+   ========================================================================== */
+
+@theme inline {
+  --color-bg: oklch(0.18 0 0);
+  --color-bg-2: oklch(0.13 0 0);
+  --color-surface: oklch(0.22 0.005 280);
+  --color-surface-2: oklch(0.27 0.005 280);
+  --color-border: oklch(0.32 0.005 280);
+  --color-border-strong: oklch(0.42 0.005 280);
+  --color-fg: oklch(0.97 0 0);
+  --color-fg-muted: oklch(0.78 0 0);
+  --color-fg-subtle: oklch(0.58 0 0);
+  --color-conversion: oklch(0.88 0.20 95);     /* electric yellow */
+  --color-conversion-2: oklch(0.78 0.18 80);
+  --color-alarm: oklch(0.62 0.22 25);           /* alarm red */
+  --color-success: oklch(0.72 0.16 145);
+  --color-strike: oklch(0.55 0.04 60);
+
+  --font-sans: var(--font-heebo), var(--font-assistant), -apple-system, sans-serif;
+  --font-display: var(--font-heebo), -apple-system, sans-serif;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+
+html {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background:
+    radial-gradient(60% 50% at 50% 0%, oklch(0.88 0.20 95 / 0.12), transparent 60%),
+    var(--color-bg);
+}
+
+/* Highlighter-marker for benefits */
+.highlight-marker {
+  background: linear-gradient(180deg, transparent 60%, oklch(0.88 0.20 95 / 0.4) 60%);
+  padding: 0 4px;
+}
+
+/* Big-number style */
+.big-num {
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+}
+
+/* Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 600ms cubic-bezier(0.22, 1, 0.36, 1), transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+/* Pulse for urgency / countdown */
+@keyframes urgent-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.88 0.20 95 / 0.5); }
+  50% { box-shadow: 0 0 0 12px oklch(0.88 0.20 95 / 0); }
+}
+.urgent-pulse { animation: urgent-pulse 2s ease-in-out infinite; }
+
+/* Strike-through for crossed-out prices */
+.strike {
+  text-decoration: line-through;
+  text-decoration-color: var(--color-alarm);
+  text-decoration-thickness: 2px;
+  color: var(--color-strike);
+}
+
+/* Guarantee seal */
+@keyframes seal-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.seal-text { animation: seal-rotate 22s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .urgent-pulse, .seal-text { animation: none; }
+}

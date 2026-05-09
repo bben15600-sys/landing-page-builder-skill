@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Wedding & Events — Romantic Blush palette (Hebrew RTL)
+   Inspired by Achuza Beit Hanan, Bliss & Bone, Sasha Souza
+   ========================================================================== */
+
+@theme inline {
+  --color-bg: oklch(0.96 0.02 30);
+  --color-surface: oklch(0.98 0.012 35);
+  --color-surface-2: oklch(0.93 0.025 30);
+  --color-border: oklch(0.85 0.025 30);
+  --color-border-strong: oklch(0.72 0.04 30);
+  --color-fg: oklch(0.22 0.025 30);
+  --color-fg-muted: oklch(0.42 0.03 30);
+  --color-fg-subtle: oklch(0.58 0.02 30);
+  --color-accent: oklch(0.78 0.12 85);
+  --color-accent-2: oklch(0.62 0.10 130);
+  --color-blush: oklch(0.88 0.05 25);
+  --color-rose: oklch(0.78 0.06 20);
+
+  --font-sans: var(--font-heebo), -apple-system, sans-serif;
+  --font-serif: var(--font-frank-ruhl), var(--font-cormorant), Georgia, serif;
+  --font-display: var(--font-cormorant), var(--font-frank-ruhl), serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+}
+
+html {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background:
+    radial-gradient(60% 50% at 50% 0%, oklch(0.88 0.05 25 / 0.4), transparent 70%),
+    radial-gradient(40% 30% at 90% 80%, oklch(0.72 0.06 130 / 0.18), transparent 70%),
+    var(--color-bg);
+}
+
+.font-serif { font-family: var(--font-serif); }
+.font-display { font-family: var(--font-display); }
+.italic-display {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+}
+
+@keyframes kenburns {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+.ken-burns { animation: kenburns 14s ease-out infinite alternate; }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 900ms cubic-bezier(0.4, 0, 0.2, 1), transform 900ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.draw-stroke {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: draw 2.4s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .ken-burns { animation: none; }
+  .draw-stroke { animation: none; stroke-dashoffset: 0; }
+}
+
+.watercolor-wash {
+  background-image: radial-gradient(ellipse at top, oklch(0.92 0.04 25 / 0.45), transparent 60%);
+}
+
+.hairline { border-color: oklch(0.85 0.025 30 / 0.7); }
+.hero-overlay {
+  background: linear-gradient(180deg, oklch(0.22 0.025 30 / 0.1) 0%, oklch(0.22 0.025 30 / 0.4) 100%);
+}
