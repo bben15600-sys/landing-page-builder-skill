@@ -162,43 +162,29 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 /* ==========================================================================
-   Image-color simulation utilities (atmospheric gradients in lieu of photos)
+   Real Unsplash event-photography backgrounds
+   (each class targets a distinct mood used across hero / work / series)
    ========================================================================== */
-.photo-golden {
-  background: radial-gradient(ellipse at 30% 40%, oklch(0.85 0.08 70 / 0.95), transparent 55%),
-              radial-gradient(ellipse at 70% 60%, oklch(0.62 0.10 35 / 0.9), transparent 60%),
-              linear-gradient(135deg, oklch(0.45 0.06 50) 0%, oklch(0.18 0.02 30) 100%);
+[class*="photo-"]:not(.photo-card) {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
-.photo-blue {
-  background: radial-gradient(ellipse at 50% 30%, oklch(0.70 0.06 240 / 0.7), transparent 60%),
-              radial-gradient(ellipse at 30% 70%, oklch(0.40 0.08 280 / 0.8), transparent 60%),
-              linear-gradient(180deg, oklch(0.30 0.05 250) 0%, oklch(0.12 0.04 250) 100%);
-}
-.photo-candle {
-  background: radial-gradient(ellipse at 50% 50%, oklch(0.78 0.12 60 / 0.7), transparent 50%),
-              linear-gradient(180deg, oklch(0.20 0.04 30) 0%, oklch(0.10 0.02 30) 100%);
-}
-.photo-bw {
-  background: linear-gradient(135deg, oklch(0.92 0 0) 0%, oklch(0.55 0 0) 50%, oklch(0.20 0 0) 100%);
-}
-.photo-rose {
-  background: radial-gradient(ellipse at 40% 30%, oklch(0.85 0.08 20 / 0.7), transparent 60%),
-              radial-gradient(ellipse at 70% 80%, oklch(0.65 0.05 15 / 0.7), transparent 60%),
-              linear-gradient(135deg, oklch(0.78 0.06 25) 0%, oklch(0.40 0.05 20) 100%);
-}
-.photo-sage {
-  background: radial-gradient(ellipse at 60% 50%, oklch(0.82 0.05 130 / 0.7), transparent 60%),
-              linear-gradient(135deg, oklch(0.55 0.05 130) 0%, oklch(0.25 0.04 130) 100%);
-}
-.photo-noir {
-  background: radial-gradient(ellipse at 30% 60%, oklch(0.18 0 0 / 0.7), transparent 60%),
-              linear-gradient(180deg, oklch(0.12 0 0) 0%, oklch(0.04 0 0) 100%);
-}
-.photo-honey {
-  background: radial-gradient(ellipse at 50% 40%, oklch(0.85 0.13 85 / 0.7), transparent 55%),
-              linear-gradient(135deg, oklch(0.65 0.10 75) 0%, oklch(0.30 0.06 50) 100%);
-}
-.photo-ivory {
-  background: radial-gradient(ellipse at 40% 50%, oklch(0.95 0.02 80 / 0.95), transparent 60%),
-              linear-gradient(180deg, oklch(0.88 0.03 80) 0%, oklch(0.55 0.06 70) 100%);
-}
+
+.photo-golden  { background-image: url("https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=80&auto=format&fit=crop"); }
+.photo-blue    { background-image: url("https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=1920&q=80&auto=format&fit=crop"); }
+.photo-candle  { background-image: url("https://images.unsplash.com/photo-1535378917042-10a22c95931a?w=1920&q=80&auto=format&fit=crop"); }
+.photo-bw      { background-image: url("https://images.unsplash.com/photo-1525258946800-98cfd641d0de?w=1920&q=80&auto=format&fit=crop"); }
+.photo-rose    { background-image: url("https://images.unsplash.com/photo-1606490194859-07c18c9f0968?w=1920&q=80&auto=format&fit=crop"); }
+.photo-sage    { background-image: url("https://images.unsplash.com/photo-1604017011826-d3b4c23f8914?w=1920&q=80&auto=format&fit=crop"); }
+.photo-noir    { background-image: url("https://images.unsplash.com/photo-1512757776214-26d36777b513?w=1920&q=80&auto=format&fit=crop"); }
+.photo-honey   { background-image: url("https://images.unsplash.com/photo-1551803091-e20673f15770?w=1920&q=80&auto=format&fit=crop"); }
+.photo-ivory   { background-image: url("https://images.unsplash.com/photo-1525134479668-1bee5c7c6845?w=1920&q=80&auto=format&fit=crop"); }
+
+/* Frame-specific photos for the series-essay (chronological wedding day) */
+.photo-frame-prep   { background-image: url("https://images.unsplash.com/photo-1583939411023-14783179e581?w=1920&q=80&auto=format&fit=crop"); }
+.photo-frame-hug    { background-image: url("https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=1920&q=80&auto=format&fit=crop"); }
+.photo-frame-walk   { background-image: url("https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1920&q=80&auto=format&fit=crop"); }
+.photo-frame-dance  { background-image: url("https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1920&q=80&auto=format&fit=crop"); }
+.photo-frame-party  { background-image: url("https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1920&q=80&auto=format&fit=crop"); }
+.photo-frame-late   { background-image: url("https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=1920&q=80&auto=format&fit=crop"); }
