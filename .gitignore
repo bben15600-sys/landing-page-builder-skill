@@ -1,0 +1,8 @@
+
+# secrets
+.vercel-token
+node_modules/
+.next/
+demos/*/node_modules/
+demos/*/.next/
+.env*.local
