@@ -47,7 +47,7 @@ export function Packages() {
                 <div
                   className={cn(
                     "mt-5 font-display text-4xl",
-                    "featured" in pkg && pkg.featured && "gold-text",
+                    "featured" in pkg && pkg.featured && "italic-display",
                   )}
                 >
                   {pkg.price}

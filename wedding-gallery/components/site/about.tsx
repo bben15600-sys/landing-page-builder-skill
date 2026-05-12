@@ -29,17 +29,6 @@ export function About() {
       id="about"
       className="relative scroll-mt-24 py-24 sm:py-32 border-t border-border overflow-hidden"
     >
-      <div
-        className="glow-orb"
-        style={{
-          top: "10%",
-          left: "-15%",
-          width: 420,
-          height: 420,
-          opacity: 0.5,
-        }}
-      />
-
       <div className="mx-auto max-w-7xl px-5 sm:px-8 relative">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           <Reveal className="lg:col-span-5">

@@ -1,13 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { ChevronDown } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { siteConfig } from "./site-config";
-import { Sparks } from "./sparks";
+import { TextReveal } from "./text-reveal";
 
 export function Hero() {
   return (
-    <section className="relative min-h-[100svh] w-full overflow-hidden">
+    <section className="relative min-h-[100svh] w-full overflow-hidden bg-background">
       <div className="absolute inset-0">
         <Image
           src={siteConfig.event.heroImage}
@@ -15,99 +15,106 @@ export function Hero() {
           fill
           priority
           sizes="100vw"
-          className="object-cover animate-fade-in-slow"
+          className="object-cover grayscale animate-fade-in-slow opacity-70"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/55 to-black/90" />
-        <div className="absolute inset-0 bg-grain opacity-40" />
-        <div
-          className="glow-orb"
-          style={{ top: "-10%", right: "-10%", width: 520, height: 520 }}
-        />
-        <div
-          className="glow-orb"
-          style={{
-            bottom: "-15%",
-            left: "-12%",
-            width: 480,
-            height: 480,
-            animationDelay: "2s",
-          }}
-        />
-        <Sparks count={14} />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/95" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/40" />
       </div>
 
-      <div className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-6 text-center text-white">
-        <div className="animate-fade-in-up" style={{ animationDelay: "200ms" }}>
-          <p className="text-xs tracking-[0.4em] text-white/70 mb-6 uppercase">
-            {siteConfig.event.date}
+      <span
+        aria-hidden
+        className="absolute font-display italic-display text-[40vw] sm:text-[28vw] md:text-[22vw] leading-none text-white/[0.04] select-none pointer-events-none"
+        style={{
+          bottom: "-6vw",
+          right: "-3vw",
+        }}
+      >
+        01
+      </span>
+
+      <div className="absolute top-20 sm:top-24 right-5 sm:right-12 text-white animate-fade-in" style={{ animationDelay: "300ms" }}>
+        <p className="text-[10px] tracking-[0.4em] uppercase text-white/70">
+          Volume 01 · Issue {new Date().getFullYear()}
+        </p>
+      </div>
+
+      <div className="absolute top-20 sm:top-24 left-5 sm:left-12 text-white animate-fade-in" style={{ animationDelay: "300ms" }}>
+        <p className="text-[10px] tracking-[0.4em] uppercase text-white/70 text-left">
+          {siteConfig.event.date}
+        </p>
+      </div>
+
+      <div className="relative z-10 flex min-h-[100svh] flex-col justify-center px-5 sm:px-12 md:px-20">
+        <div className="max-w-4xl">
+          <p
+            className="text-[11px] tracking-[0.5em] uppercase text-white/80 mb-6 sm:mb-8 animate-fade-in"
+            style={{ animationDelay: "500ms" }}
+          >
+            ─── A Wedding Story
           </p>
-        </div>
 
-        <div
-          className="relative animate-fade-in-up"
-          style={{ animationDelay: "400ms" }}
-        >
-          <div className="border border-white/30 px-10 py-10 sm:px-16 sm:py-12 md:px-24 md:py-16 max-w-[min(90vw,640px)]">
-            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.05] tracking-tight">
-              {siteConfig.couple.bride}
-              <span className="italic-display mx-3 text-white/80 text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
-                &amp;
-              </span>
-              {siteConfig.couple.groom}
-            </h1>
-            <div className="mt-6 flex items-center justify-center gap-3">
-              <span className="h-px w-10 bg-white/40" />
-              <span className="text-sm tracking-[0.3em] text-white/70 uppercase">
-                A Wedding Story
-              </span>
-              <span className="h-px w-10 bg-white/40" />
-            </div>
+          <h1 className="font-display text-white">
+            <TextReveal
+              text={siteConfig.couple.bride}
+              className="block text-7xl sm:text-8xl md:text-[10rem] lg:text-[12rem] tracking-tight"
+              delay={400}
+            />
+            <span className="block italic-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl mr-8 sm:mr-16 md:mr-32 text-white/80 -mt-2 sm:-mt-4">
+              <TextReveal text="&" delay={900} staggerMs={0} />
+            </span>
+            <TextReveal
+              text={siteConfig.couple.groom}
+              className="block text-7xl sm:text-8xl md:text-[10rem] lg:text-[12rem] tracking-tight mr-12 sm:mr-24 md:mr-48 -mt-2 sm:-mt-4"
+              delay={1100}
+            />
+          </h1>
+
+          <div
+            className="mt-8 sm:mt-12 max-w-md animate-fade-in-up"
+            style={{ animationDelay: "1800ms" }}
+          >
+            <p className="text-base sm:text-lg text-white/80 italic-display leading-relaxed">
+              {siteConfig.couple.storyShort}
+            </p>
+            <p className="mt-4 text-xs tracking-[0.3em] uppercase text-white/60">
+              Photographed by{" "}
+              <span className="text-white">{siteConfig.photographer.nameEn}</span>
+            </p>
           </div>
-        </div>
 
-        <p
-          className="italic-display mt-10 text-base sm:text-lg text-white/85 animate-fade-in-up"
-          style={{ animationDelay: "700ms" }}
-        >
-          צילום ·{" "}
-          <span className="gold-text font-medium tracking-wide">
-            {siteConfig.photographer.name}
-          </span>
-        </p>
-
-        <p
-          className="mt-3 max-w-md text-sm text-white/60 animate-fade-in-up"
-          style={{ animationDelay: "850ms" }}
-        >
-          {siteConfig.couple.storyShort}
-        </p>
-
-        <div
-          className="mt-10 flex flex-wrap items-center justify-center gap-3 animate-fade-in-up"
-          style={{ animationDelay: "1000ms" }}
-        >
-          <a
-            href="#gallery"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-accent px-7 text-sm font-medium text-accent-foreground hover:bg-accent-strong transition-colors shadow-[0_0_40px_-8px_var(--accent-glow)]"
+          <div
+            className="mt-10 sm:mt-14 flex flex-wrap items-center gap-x-8 gap-y-4 animate-fade-in-up"
+            style={{ animationDelay: "2100ms" }}
           >
-            צפייה בגלריה
-          </a>
-          <a
-            href="#contact"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-white/40 px-7 text-sm font-medium text-white hover:bg-white/10 transition-colors"
-          >
-            תיאום צילום
-          </a>
+            <a
+              href="#gallery"
+              data-cursor="hover"
+              className="group inline-flex items-center gap-3 text-sm tracking-[0.2em] uppercase text-white border-b border-white pb-1 hover:gap-5 transition-all"
+            >
+              View the gallery
+              <span className="text-base">→</span>
+            </a>
+            <a
+              href="#contact"
+              data-cursor="hover"
+              className="group inline-flex items-center gap-3 text-sm tracking-[0.2em] uppercase text-white/70 hover:text-white border-b border-transparent hover:border-white pb-1 transition-all"
+            >
+              Book a session
+              <span className="text-base">→</span>
+            </a>
+          </div>
         </div>
 
         <a
           href="#trust"
           aria-label="גלילה למטה"
-          className="absolute bottom-10 flex flex-col items-center gap-2 text-white/70 hover:text-white transition-colors animate-fade-in"
-          style={{ animationDelay: "1300ms" }}
+          className="absolute bottom-8 sm:bottom-12 left-5 sm:left-12 flex flex-col items-center gap-3 text-white/70 hover:text-white transition-colors animate-fade-in"
+          style={{ animationDelay: "2400ms" }}
         >
-          <span className="text-[10px] tracking-[0.3em] uppercase">גלילה</span>
-          <ChevronDown size={22} className="animate-bounce-slow" />
+          <ArrowDown size={18} className="animate-bounce-slow" />
+          <span className="text-[10px] tracking-[0.3em] uppercase [writing-mode:vertical-rl]">
+            Scroll
+          </span>
         </a>
       </div>
     </section>

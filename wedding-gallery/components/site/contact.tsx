@@ -95,17 +95,6 @@ export function Contact() {
       id="contact"
       className="relative scroll-mt-24 py-24 sm:py-32 border-t border-border overflow-hidden"
     >
-      <div
-        className="glow-orb"
-        style={{
-          bottom: "-10%",
-          right: "-15%",
-          width: 480,
-          height: 480,
-          opacity: 0.4,
-        }}
-      />
-
       <div className="mx-auto max-w-7xl px-5 sm:px-8 relative">
         <Reveal className="text-center mb-14">
           <p className="text-xs tracking-[0.35em] uppercase text-accent mb-4">
