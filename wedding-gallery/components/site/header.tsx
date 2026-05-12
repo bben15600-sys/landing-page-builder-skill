@@ -7,11 +7,12 @@ import { siteConfig } from "./site-config";
 import { useFavorites } from "./favorites-store";
 
 const navItems = [
-  { href: "#search", label: "חיפוש" },
-  { href: "#albums", label: "אלבומים" },
+  { href: "#services", label: "שירותים" },
   { href: "#gallery", label: "גלריה" },
+  { href: "#about", label: "על הצלם" },
+  { href: "#packages", label: "השקעה" },
   { href: "#testimonials", label: "המלצות" },
-  { href: "#share", label: "שיתוף" },
+  { href: "#contact", label: "תיאום" },
 ];
 
 export function Header() {

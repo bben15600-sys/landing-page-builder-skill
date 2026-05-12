@@ -185,6 +185,165 @@ export const siteConfig = {
     enabled: true,
     placeholder: "יש שאלה? כתבו לי",
   },
+  stats: {
+    yearsExperience: 12,
+    weddings: 240,
+    rating: 5,
+    coverage: "כל הארץ",
+  },
+  trustBadges: [
+    { icon: "Award", label: "מבחר עורכי דין מצלמים" },
+    { icon: "ShieldCheck", label: "אחריות מלאה על החומר" },
+    { icon: "Clock", label: "מסירה תוך 30 יום" },
+    { icon: "MapPin", label: "כל הארץ + חו״ל" },
+  ],
+  services: [
+    {
+      id: "weddings",
+      title: "חתונות",
+      description:
+        "תיעוד מלא של היום החשוב בחייכם — מההכנות ועד שעות הקטנות. סגנון עיתונאי טבעי, ללא בימוי.",
+      icon: "Heart",
+      size: "lg",
+      accent: true,
+      label: "התמחות בלעדית",
+    },
+    {
+      id: "bar-mitzvah",
+      title: "בר/בת מצווה",
+      description: "תיעוד אישי של הטקס והמסיבה — סטילס + וידאו.",
+      icon: "Sparkles",
+      size: "md",
+    },
+    {
+      id: "magnets",
+      title: "מגנטים בזמן אמת",
+      description: "מתנה לאורחים — מגנט מודפס בזמן האירוע, תוך 30 שניות.",
+      icon: "Zap",
+      size: "md",
+      label: "אטרקציה",
+    },
+    {
+      id: "events",
+      title: "אירועים פרטיים",
+      description: "ימי הולדת, חינות, אירוסין, מסיבות חברה.",
+      icon: "PartyPopper",
+      size: "sm",
+    },
+    {
+      id: "studio",
+      title: "צילומי סטודיו",
+      description: "פורטרטים, משפחה, היריון, גיל שנה.",
+      icon: "Camera",
+      size: "sm",
+    },
+    {
+      id: "album",
+      title: "אלבום דיגיטלי",
+      description: "כריכה קשה, נייר אומנותי, עיצוב אישי.",
+      icon: "BookOpen",
+      size: "md",
+    },
+  ],
+  aboutBullets: [
+    {
+      icon: "Award",
+      title: "12 שנות ניסיון",
+      description: "מאות אירועים, אלפי רגעים, רגישות מקצועית בכל פריים.",
+    },
+    {
+      icon: "Camera",
+      title: "ציוד מקצועי כפול",
+      description: "שתי מצלמות פול-פריים, 4 עדשות מהירות, גיבוי לכל קובץ.",
+    },
+    {
+      icon: "Sparkles",
+      title: "סגנון עיתונאי",
+      description: "מתעד בלי לביים. הרגעים האמיתיים — לא העמדה.",
+    },
+    {
+      icon: "ShieldCheck",
+      title: "ביטוח ואחריות",
+      description: "פוליסת ביטוח אחריות מקצועית, גיבוי כפול ענן + דיסק.",
+    },
+    {
+      icon: "Heart",
+      title: "ליווי אישי",
+      description: "פגישה לפני, ייעוץ ביום, זמינות בוואטסאפ לאחר.",
+    },
+    {
+      icon: "Clock",
+      title: "מסירה תוך 30 יום",
+      description: "תוך 7 ימים — Preview של 50 תמונות נבחרות.",
+    },
+  ],
+  process: [
+    {
+      step: "01",
+      title: "פגישת היכרות",
+      description:
+        "בזום או בקפה. מבינים את הסגנון שלכם, האירוע, ומה חשוב לכם שיתועד.",
+      icon: "Coffee",
+    },
+    {
+      step: "02",
+      title: "תיאום ותכנון",
+      description:
+        "לוח זמנים, רשימת רגעים מיוחדים, סקאוטינג של המקום, חוזה מסודר.",
+      icon: "Calendar",
+    },
+    {
+      step: "03",
+      title: "יום הצילום",
+      description: "מגיע עם כל הציוד, נוכח ולא נראה, מתעד מההכנות עד הסיום.",
+      icon: "Camera",
+    },
+    {
+      step: "04",
+      title: "עריכה ואספקה",
+      description:
+        "Preview של 50 תמונות תוך שבוע. גלריה מלאה ערוכה תוך 30 יום.",
+      icon: "Send",
+    },
+  ],
+  packages: [
+    {
+      name: "חבילת בייסיק",
+      hours: "6 שעות",
+      price: "מ-3,900 ₪",
+      includes: [
+        "צלם ראשי",
+        "300+ תמונות ערוכות",
+        "גלריה דיגיטלית פרטית",
+        "אספקה תוך 30 יום",
+      ],
+    },
+    {
+      name: "חבילת פרימיום",
+      hours: "10 שעות",
+      price: "מ-6,900 ₪",
+      featured: true,
+      includes: [
+        "צלם ראשי + צלם משנה",
+        "600+ תמונות ערוכות",
+        "גלריית AI עם חיפוש פנים",
+        "אלבום דיגיטלי בעיצוב אישי",
+        "מגנטים בזמן אמת (50 יח')",
+      ],
+    },
+    {
+      name: "חבילת VIP",
+      hours: "מלאות",
+      price: "מ-12,900 ₪",
+      includes: [
+        "2 צלמים + וידאו",
+        "כל החומר הגולמי",
+        "אלבום הדפסה (40 עמ׳)",
+        "סרט סיכום קצר",
+        "מגנטים ללא הגבלה",
+      ],
+    },
+  ],
 } as const;
 
 type AlbumId = (typeof siteConfig.albums)[number]["id"];

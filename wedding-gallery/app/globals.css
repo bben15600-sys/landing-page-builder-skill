@@ -1,16 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --background: oklch(0.08 0 0);
+  --background: oklch(0.09 0.01 260);
+  --background-deep: oklch(0.06 0.015 260);
   --foreground: oklch(0.98 0 0);
   --muted: oklch(0.65 0 0);
   --muted-foreground: oklch(0.72 0 0);
-  --border: oklch(1 0 0 / 0.12);
-  --border-strong: oklch(1 0 0 / 0.24);
-  --card: oklch(0.11 0 0);
-  --card-hover: oklch(0.14 0 0);
-  --accent: oklch(0.85 0.04 70);
-  --accent-soft: oklch(0.85 0.04 70 / 0.15);
+  --border: oklch(1 0 0 / 0.1);
+  --border-strong: oklch(1 0 0 / 0.22);
+  --card: oklch(0.13 0.012 260);
+  --card-hover: oklch(0.17 0.014 260);
+  --accent: oklch(0.83 0.16 86);
+  --accent-strong: oklch(0.88 0.18 92);
+  --accent-soft: oklch(0.83 0.16 86 / 0.16);
+  --accent-glow: oklch(0.83 0.16 86 / 0.45);
+  --accent-foreground: oklch(0.12 0.015 260);
 }
 
 @theme inline {
@@ -23,7 +27,9 @@
   --color-card: var(--card);
   --color-card-hover: var(--card-hover);
   --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
   --color-accent-soft: var(--accent-soft);
+  --color-accent-foreground: var(--accent-foreground);
   --font-display: var(--font-playfair), "Frank Ruhl Libre", Georgia, serif;
   --font-sans: var(--font-heebo), system-ui, -apple-system, sans-serif;
 }
@@ -126,6 +132,47 @@ body {
   }
 }
 
+@keyframes spark-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.55;
+  }
+  25% {
+    transform: translate3d(8px, -14px, 0) scale(1.15);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate3d(-6px, -22px, 0) scale(0.95);
+    opacity: 1;
+  }
+  75% {
+    transform: translate3d(10px, -10px, 0) scale(1.1);
+    opacity: 0.75;
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes accent-sweep {
+  0% {
+    background-position: -200% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
 .animate-fade-in-up {
   animation: fade-in-up 0.8s ease-out both;
 }
@@ -164,6 +211,67 @@ body {
     transparent 0
   );
   background-size: 28px 28px;
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(to right, oklch(1 0 0 / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(1 0 0 / 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.bg-grid-fade {
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    black 35%,
+    transparent 75%
+  );
+  mask-image: radial-gradient(
+    ellipse at center,
+    black 35%,
+    transparent 75%
+  );
+}
+
+.gold-text {
+  background: linear-gradient(
+    90deg,
+    oklch(0.78 0.14 80),
+    oklch(0.92 0.16 92),
+    oklch(0.78 0.14 80)
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: accent-sweep 8s linear infinite;
+}
+
+.spark {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    var(--accent-strong) 0%,
+    var(--accent) 35%,
+    transparent 70%
+  );
+  filter: blur(0.5px);
+  animation: spark-float 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    var(--accent-glow) 0%,
+    transparent 70%
+  );
+  filter: blur(28px);
+  animation: glow-pulse 5s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .scrollbar-hide::-webkit-scrollbar {

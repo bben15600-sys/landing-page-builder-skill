@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ChevronDown } from "lucide-react";
 import { siteConfig } from "./site-config";
+import { Sparks } from "./sparks";
 
 export function Hero() {
   return (
@@ -16,8 +17,23 @@ export function Hero() {
           sizes="100vw"
           className="object-cover animate-fade-in-slow"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/45 to-black/80" />
-        <div className="absolute inset-0 bg-grain opacity-50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/55 to-black/90" />
+        <div className="absolute inset-0 bg-grain opacity-40" />
+        <div
+          className="glow-orb"
+          style={{ top: "-10%", right: "-10%", width: 520, height: 520 }}
+        />
+        <div
+          className="glow-orb"
+          style={{
+            bottom: "-15%",
+            left: "-12%",
+            width: 480,
+            height: 480,
+            animationDelay: "2s",
+          }}
+        />
+        <Sparks count={14} />
       </div>
 
       <div className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-6 text-center text-white">
@@ -54,7 +70,7 @@ export function Hero() {
           style={{ animationDelay: "700ms" }}
         >
           צילום ·{" "}
-          <span className="font-medium tracking-wide">
+          <span className="gold-text font-medium tracking-wide">
             {siteConfig.photographer.name}
           </span>
         </p>
@@ -66,15 +82,31 @@ export function Hero() {
           {siteConfig.couple.storyShort}
         </p>
 
+        <div
+          className="mt-10 flex flex-wrap items-center justify-center gap-3 animate-fade-in-up"
+          style={{ animationDelay: "1000ms" }}
+        >
+          <a
+            href="#gallery"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-accent px-7 text-sm font-medium text-accent-foreground hover:bg-accent-strong transition-colors shadow-[0_0_40px_-8px_var(--accent-glow)]"
+          >
+            צפייה בגלריה
+          </a>
+          <a
+            href="#contact"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-white/40 px-7 text-sm font-medium text-white hover:bg-white/10 transition-colors"
+          >
+            תיאום צילום
+          </a>
+        </div>
+
         <a
-          href="#search"
+          href="#trust"
           aria-label="גלילה למטה"
           className="absolute bottom-10 flex flex-col items-center gap-2 text-white/70 hover:text-white transition-colors animate-fade-in"
-          style={{ animationDelay: "1100ms" }}
+          style={{ animationDelay: "1300ms" }}
         >
-          <span className="text-[10px] tracking-[0.3em] uppercase">
-            גלילה
-          </span>
+          <span className="text-[10px] tracking-[0.3em] uppercase">גלילה</span>
           <ChevronDown size={22} className="animate-bounce-slow" />
         </a>
       </div>
