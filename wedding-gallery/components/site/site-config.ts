@@ -187,8 +187,7 @@ export const siteConfig = {
   },
 } as const;
 
-const albumIds = siteConfig.albums.map((a) => a.id);
-type AlbumId = (typeof albumIds)[number];
+type AlbumId = (typeof siteConfig.albums)[number]["id"];
 const FACE_IDS = siteConfig.faces.map((f) => f.id);
 
 const PHOTO_IDS = [
@@ -225,7 +224,7 @@ const PHOTO_IDS = [
 ];
 
 function pseudoRandom(seed: number) {
-  let x = Math.sin(seed) * 10000;
+  const x = Math.sin(seed) * 10000;
   return x - Math.floor(x);
 }
 

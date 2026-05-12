@@ -30,6 +30,7 @@ export function FavoritesProvider({ children }: { children: React.ReactNode }) {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const arr = JSON.parse(raw) as string[];
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setFavorites(new Set(arr));
       }
     } catch {

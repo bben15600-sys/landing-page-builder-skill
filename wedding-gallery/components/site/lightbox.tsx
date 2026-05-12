@@ -45,7 +45,6 @@ export function Lightbox({
   const [showShare, setShowShare] = useState(false);
   const touchStartX = useRef<number | null>(null);
   const touchStartY = useRef<number | null>(null);
-  const pinchStart = useRef<number | null>(null);
 
   const photo = photos[index];
   const total = photos.length;
@@ -54,12 +53,14 @@ export function Lightbox({
     if (total === 0) return;
     onIndexChange((index + 1) % total);
     setZoom(1);
+    setShowShare(false);
   }, [index, total, onIndexChange]);
 
   const prev = useCallback(() => {
     if (total === 0) return;
     onIndexChange((index - 1 + total) % total);
     setZoom(1);
+    setShowShare(false);
   }, [index, total, onIndexChange]);
 
   useEffect(() => {
@@ -80,10 +81,6 @@ export function Lightbox({
       document.body.style.overflow = "";
     };
   }, [open, onClose, next, prev]);
-
-  useEffect(() => {
-    setShowShare(false);
-  }, [index]);
 
   if (!open || !photo) return null;
 
