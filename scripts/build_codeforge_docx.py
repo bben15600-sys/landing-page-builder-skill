@@ -133,6 +133,124 @@ def make_table(doc, headers, rows, col_widths=None):
     return table
 
 
+def stats_grid(doc, items):
+    """3-column colored stats grid (number + label per cell)."""
+    table = doc.add_table(rows=1, cols=len(items))
+    table.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    tblPr = table._tbl.tblPr
+    bidi = OxmlElement('w:bidiVisual')
+    tblPr.append(bidi)
+
+    for i, (num, label) in enumerate(items):
+        cell = table.rows[0].cells[i]
+        set_cell_bg(cell, ALT_ROW_BG)
+        tc_pr = cell._tc.get_or_add_tcPr()
+        tc_borders = OxmlElement('w:tcBorders')
+        for side in ['top', 'left', 'bottom', 'right']:
+            b = OxmlElement(f'w:{side}')
+            b.set(qn('w:val'), 'single')
+            b.set(qn('w:sz'), '6')
+            b.set(qn('w:color'), '0B5ED7')
+            tc_borders.append(b)
+        tc_pr.append(tc_borders)
+
+        p1 = cell.paragraphs[0]
+        set_rtl(p1)
+        p1.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r1 = p1.add_run(num)
+        r1.font.size = Pt(24)
+        r1.font.bold = True
+        r1.font.color.rgb = PRIMARY
+        r1.font.name = 'Calibri'
+
+        p2 = cell.add_paragraph()
+        set_rtl(p2)
+        p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r2 = p2.add_run(label)
+        r2.font.size = Pt(9)
+        r2.font.color.rgb = MUTED
+        r2.font.name = 'Calibri'
+        cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
+    return table
+
+
+def stack_diagram(doc, rows):
+    """5-row colored stack with descending shade — visual architecture layers."""
+    colors = ['0B5ED7', '1E40AF', '5B21B6', '7C2D12', '1A1A2E']
+    table = doc.add_table(rows=len(rows), cols=1)
+    tblPr = table._tbl.tblPr
+    bidi = OxmlElement('w:bidiVisual')
+    tblPr.append(bidi)
+
+    for i, (label, desc) in enumerate(rows):
+        cell = table.rows[i].cells[0]
+        set_cell_bg(cell, colors[i % len(colors)])
+
+        p1 = cell.paragraphs[0]
+        set_rtl(p1)
+        p1.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+        r1 = p1.add_run(label)
+        r1.font.size = Pt(13)
+        r1.font.bold = True
+        r1.font.color.rgb = RGBColor(0xFF, 0xFF, 0xFF)
+        r1.font.name = 'Calibri'
+
+        p2 = cell.add_paragraph()
+        set_rtl(p2)
+        p2.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+        r2 = p2.add_run(desc)
+        r2.font.size = Pt(10)
+        r2.font.color.rgb = RGBColor(0xFF, 0xFF, 0xFF)
+        r2.font.name = 'Calibri'
+    return table
+
+
+def cover_page(doc):
+    """Full-width colored cover banner with title + tagline + quote."""
+    table = doc.add_table(rows=1, cols=1)
+    cell = table.rows[0].cells[0]
+    set_cell_bg(cell, '0B5ED7')
+
+    p1 = cell.paragraphs[0]
+    p1.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p1.paragraph_format.space_before = Pt(60)
+    r1 = p1.add_run('CodeForge')
+    r1.font.size = Pt(72)
+    r1.font.bold = True
+    r1.font.color.rgb = RGBColor(0xFF, 0xFF, 0xFF)
+    r1.font.name = 'Calibri'
+
+    p2 = cell.add_paragraph()
+    p2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    set_rtl(p2)
+    r2 = p2.add_run('מנוע ה-AI האוניברסלי לבניית כל דבר')
+    r2.font.size = Pt(20)
+    r2.font.bold = True
+    r2.font.color.rgb = RGBColor(0xFF, 0xFF, 0xFF)
+    r2.font.name = 'Calibri'
+
+    p3 = cell.add_paragraph()
+    p3.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    set_rtl(p3)
+    p3.paragraph_format.space_before = Pt(20)
+    r3 = p3.add_run('מערכת אחת. כל מסגרת פיתוח. כל פלטפורמה. כל פרויקט.\nמ-prompt בעברית לאפליקציה חיה בייצור — תוך דקות.')
+    r3.font.size = Pt(13)
+    r3.font.italic = True
+    r3.font.color.rgb = RGBColor(0xE7, 0xF1, 0xFE)
+    r3.font.name = 'Calibri'
+
+    p4 = cell.add_paragraph()
+    p4.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    set_rtl(p4)
+    p4.paragraph_format.space_before = Pt(30)
+    p4.paragraph_format.space_after = Pt(60)
+    r4 = p4.add_run('מסמך תקציר · מבוסס על 15 מחקרים עצמאיים מעמיקים')
+    r4.font.size = Pt(11)
+    r4.font.color.rgb = RGBColor(0xE7, 0xF1, 0xFE)
+    r4.font.name = 'Calibri'
+    return table
+
+
 def callout_box(doc, title, text, bg="E7F1FE", border="0B5ED7"):
     table = doc.add_table(rows=1, cols=1)
     cell = table.rows[0].cells[0]
@@ -182,36 +300,9 @@ def build():
     style.font.name = 'Calibri'
     style.font.size = Pt(11)
 
-    # COVER
-    cover_p = doc.add_paragraph()
-    cover_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r = cover_p.add_run('CodeForge')
-    r.font.size = Pt(56)
-    r.font.bold = True
-    r.font.color.rgb = PRIMARY
-    r.font.name = 'Calibri'
-
-    sub = doc.add_paragraph()
-    sub.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    set_rtl(sub)
-    rs = sub.add_run('מנוע ה-AI האוניברסלי לבניית כל דבר')
-    rs.font.size = Pt(20)
-    rs.font.color.rgb = DARK
-    rs.font.name = 'Calibri'
-
-    add_horizontal_line(doc)
-
-    quote = doc.add_paragraph()
-    quote.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    set_rtl(quote)
-    rq = quote.add_run('מערכת אחת. כל מסגרת פיתוח. כל פלטפורמה. כל פרויקט.\nמ-prompt בעברית לאפליקציה חיה בייצור — תוך דקות.')
-    rq.font.size = Pt(13)
-    rq.font.italic = True
-    rq.font.color.rgb = MUTED
-    rq.font.name = 'Calibri'
-
-    doc.add_paragraph()
-    doc.add_paragraph()
+    # COVER — full-width colored banner
+    cover_page(doc)
+    doc.add_page_break()
 
     # SECTION 1 — מה זה
     heading(doc, '🎯 מה זה CodeForge?', level=1)
@@ -222,6 +313,14 @@ def build():
     para(doc,
          'זו לא רק "עוד צ\'אט AI לקוד" — זו תשתית שמשלבת את הטוב מ-Claude Code, v0, Bolt ו-Devin, '
          'ושמה את הבעלות, הגמישות והאוטונומיה בידיים שלך.')
+
+    doc.add_paragraph()
+    stats_grid(doc, [
+        ('17', 'יכולות זהות ל-Claude Code'),
+        ('10+', 'אינטגרציות MCP מ-day one'),
+        ('60-80%', 'חיסכון בעלות API'),
+    ])
+    doc.add_paragraph()
 
     # SECTION 2 — 5 יתרונות
     heading(doc, '✨ במה היא מיוחדת — 5 יתרונות תחרותיים', level=1)
@@ -354,26 +453,20 @@ def build():
     # SECTION 6 — Architecture
     heading(doc, '🏛️ ארכיטקטורת המערכת', level=1)
     para(doc, 'חמש שכבות מובנות, כל אחת ניתנת להחלפה:', bold=True)
+    doc.add_paragraph()
 
-    layers = [
-        ('1. שכבת ממשק', 'Next.js 15 + AI SDK v5 — Chat, Monaco Editor, Live Preview, File Tree'),
-        ('2. שכבת Agent', 'Single-agent harness + sub-agents on demand. כלים: Read/Edit/Write/Bash/Grep/Web/Browser'),
-        ('3. שכבת אינטליגנציה', 'Multi-Provider Routing (Claude/GPT/Gemini) + MCP Gateway (10+ שרתים) + Sandbox (Firecracker)'),
-        ('4. שכבת Storage', 'Neon Postgres + pgvector | Cloudflare R2 | WorkOS Auth | Stripe Billing | Inngest Jobs'),
-        ('5. שכבת Deploy', 'Vercel | Cloudflare Pages | Netlify | Custom infrastructure'),
-    ]
-    for t, txt in layers:
-        p = doc.add_paragraph()
-        set_rtl(p)
-        p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-        r1 = p.add_run(t + ' — ')
-        r1.font.bold = True
-        r1.font.size = Pt(12)
-        r1.font.color.rgb = PRIMARY
-        r1.font.name = 'Calibri'
-        r2 = p.add_run(txt)
-        r2.font.size = Pt(11)
-        r2.font.name = 'Calibri'
+    stack_diagram(doc, [
+        ('1. שכבת ממשק (Frontend)',
+         'Next.js 15 + AI SDK v5 · Chat · Monaco Editor · Live Preview · File Tree'),
+        ('2. שכבת Agent',
+         'Single-agent harness + sub-agents · כלים: Read · Edit · Write · Bash · Grep · Web · Browser'),
+        ('3. שכבת אינטליגנציה',
+         'Multi-Provider Routing · MCP Gateway (10+ servers) · Sandbox (Firecracker microVMs)'),
+        ('4. שכבת Storage & Services',
+         'Neon Postgres + pgvector · Cloudflare R2 · WorkOS Auth · Stripe · Inngest'),
+        ('5. שכבת Deploy',
+         'Vercel · Cloudflare Pages · Netlify · Custom infrastructure'),
+    ])
 
     doc.add_paragraph()
     heading(doc, '🧰 Tech Stack מומלץ', level=2)
