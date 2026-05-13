@@ -247,11 +247,6 @@ export const siteConfig = {
   ],
   aboutBullets: [
     {
-      icon: "Award",
-      title: "12 שנות ניסיון",
-      description: "מאות אירועים, אלפי רגעים, רגישות מקצועית בכל פריים.",
-    },
-    {
       icon: "Camera",
       title: "ציוד מקצועי כפול",
       description: "שתי מצלמות פול-פריים, 4 עדשות מהירות, גיבוי לכל קובץ.",
@@ -270,11 +265,6 @@ export const siteConfig = {
       icon: "Heart",
       title: "ליווי אישי",
       description: "פגישה לפני, ייעוץ ביום, זמינות בוואטסאפ לאחר.",
-    },
-    {
-      icon: "Clock",
-      title: "מסירה תוך 30 יום",
-      description: "תוך 7 ימים — Preview של 50 תמונות נבחרות.",
     },
   ],
   process: [

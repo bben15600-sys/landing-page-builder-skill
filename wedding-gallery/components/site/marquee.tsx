@@ -8,11 +8,12 @@ type Props = {
 };
 
 const DEFAULT_ITEMS = [
+  "רון קובי",
   "RON KOBI",
+  "מתעד אהבה",
   "EST 2013",
-  "WEDDING STORIES",
+  "סיפורים של חתונות",
   "BASED IN TEL AVIV",
-  "WORLDWIDE",
 ];
 
 export function Marquee({

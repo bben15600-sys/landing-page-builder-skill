@@ -12,7 +12,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Download,
-  Heart,
   Share2,
   X,
   ZoomIn,
@@ -21,7 +20,6 @@ import {
 import { cn } from "@/lib/utils";
 import type { Photo } from "./site-config";
 import { siteConfig } from "./site-config";
-import { useFavorites } from "./favorites-store";
 
 type Props = {
   open: boolean;
@@ -40,7 +38,6 @@ export function Lightbox({
   onClose,
   onIndexChange,
 }: Props) {
-  const { has, toggle } = useFavorites();
   const [zoom, setZoom] = useState(1);
   const [showShare, setShowShare] = useState(false);
   const touchStartX = useRef<number | null>(null);
@@ -129,8 +126,6 @@ export function Lightbox({
     setShowShare(false);
   };
 
-  const isFav = has(photo.id);
-
   return (
     <div
       className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md flex flex-col animate-fade-in"
@@ -147,16 +142,6 @@ export function Lightbox({
           <span className="text-white/60">{total}</span>
         </div>
         <div className="flex items-center gap-1 sm:gap-2">
-          <IconBtn
-            label={isFav ? "הסר ממועדפים" : "הוסף למועדפים"}
-            onClick={() => toggle(photo.id)}
-            active={isFav}
-          >
-            <Heart
-              size={18}
-              className={cn(isFav && "fill-accent text-accent")}
-            />
-          </IconBtn>
           <IconBtn
             label={zoom > 1 ? "התרחקות" : "זום"}
             onClick={cycleZoom}
@@ -252,17 +237,6 @@ export function Lightbox({
           className="flex-1 h-full flex items-center justify-center"
         >
           <ChevronRight size={22} />
-        </button>
-        <button
-          type="button"
-          onClick={() => toggle(photo.id)}
-          className="flex-1 h-full flex items-center justify-center"
-          aria-label="מועדף"
-        >
-          <Heart
-            size={20}
-            className={cn(isFav && "fill-accent text-accent")}
-          />
         </button>
         <button
           type="button"
