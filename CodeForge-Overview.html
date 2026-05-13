@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>CodeForge — מנוע ה-AI האוניברסלי לבניית כל דבר</title>
+<style>
+  @page {
+    size: A4;
+    margin: 18mm 16mm 18mm 16mm;
+    @bottom-center {
+      content: "CodeForge · עמ' " counter(page) " מתוך " counter(pages);
+      font-family: 'Heebo', 'Arial', sans-serif;
+      font-size: 9pt;
+      color: #888;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    direction: rtl;
+    font-family: 'Heebo', 'Segoe UI', 'Arial', sans-serif;
+    color: #1a1a2e;
+    font-size: 11pt;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Cover page */
+  .cover {
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 95vh;
+    background: linear-gradient(135deg, #0B5ED7 0%, #6D28D9 100%);
+    color: #fff;
+    margin: -18mm -16mm;
+    padding: 18mm 16mm;
+  }
+  .cover h1 {
+    font-size: 84pt;
+    font-weight: 900;
+    margin: 0 0 8px 0;
+    letter-spacing: -2px;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+  .cover .tagline {
+    font-size: 22pt;
+    font-weight: 600;
+    margin: 8px 0 32px 0;
+    opacity: 0.95;
+  }
+  .cover .quote {
+    font-size: 14pt;
+    font-style: italic;
+    max-width: 520px;
+    line-height: 1.7;
+    margin: 16px auto;
+    padding: 20px 28px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+  }
+  .cover .badge {
+    margin-top: 28px;
+    padding: 8px 20px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 999px;
+    font-size: 11pt;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  h1.section {
+    font-size: 26pt;
+    color: #0B5ED7;
+    margin: 28px 0 8px 0;
+    padding-bottom: 8px;
+    border-bottom: 3px solid #0B5ED7;
+    font-weight: 800;
+  }
+  h2 {
+    font-size: 17pt;
+    color: #1a1a2e;
+    margin: 22px 0 10px 0;
+    font-weight: 700;
+  }
+  h3 {
+    font-size: 13pt;
+    color: #0B5ED7;
+    margin: 14px 0 6px 0;
+    font-weight: 700;
+  }
+  p { margin: 6px 0; }
+  ul { padding-inline-start: 24px; margin: 8px 0; }
+  li { margin: 4px 0; }
+
+  /* Callout cards */
+  .callout {
+    margin: 12px 0;
+    padding: 14px 18px;
+    border-inline-start: 4px solid #0B5ED7;
+    background: #E7F1FE;
+    border-radius: 8px;
+    page-break-inside: avoid;
+  }
+  .callout-title {
+    font-weight: 700;
+    color: #0B5ED7;
+    font-size: 12.5pt;
+    margin-bottom: 4px;
+  }
+  .callout.warn { background: #FFF5E0; border-color: #E88B00; }
+  .callout.warn .callout-title { color: #B26800; }
+  .callout.success { background: #E7FBE7; border-color: #10A85A; }
+  .callout.success .callout-title { color: #0A7E43; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 12px 0;
+    font-size: 10.5pt;
+    page-break-inside: avoid;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  th {
+    background: #1a1a2e;
+    color: #fff;
+    padding: 10px 12px;
+    text-align: start;
+    font-weight: 700;
+  }
+  td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #E5E7EB;
+  }
+  tr:nth-child(even) td { background: #F3F6FB; }
+  tr:last-child td { border-bottom: none; }
+
+  /* Feature cards grid */
+  .feature {
+    margin: 10px 0;
+    padding: 14px 18px;
+    border-radius: 10px;
+    background: #F3F6FB;
+    border-inline-start: 4px solid #0B5ED7;
+    page-break-inside: avoid;
+  }
+  .feature-title {
+    font-weight: 700;
+    font-size: 12.5pt;
+    color: #0B5ED7;
+    margin-bottom: 4px;
+  }
+
+  .check { color: #10A85A; font-weight: 700; }
+  .cross { color: #DC2626; font-weight: 700; }
+  .partial { color: #E88B00; font-weight: 700; }
+  .highlight {
+    background: linear-gradient(120deg, #FEF3C7 0%, #FDE68A 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .price {
+    font-size: 14pt;
+    font-weight: 800;
+    color: #0B5ED7;
+  }
+  .footer {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 2px solid #E5E7EB;
+    font-size: 9pt;
+    color: #6B7280;
+    font-style: italic;
+    text-align: center;
+  }
+  .pagebreak { page-break-before: always; }
+
+  /* Stack diagram */
+  .stack {
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 12px 0;
+    page-break-inside: avoid;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+  .stack-row {
+    padding: 14px 20px;
+    color: #fff;
+    font-weight: 600;
+  }
+  .stack-row .label { font-size: 13pt; }
+  .stack-row .desc  { font-size: 10pt; opacity: 0.92; margin-top: 4px; }
+  .stack-row:nth-child(1) { background: #0B5ED7; }
+  .stack-row:nth-child(2) { background: #1E40AF; }
+  .stack-row:nth-child(3) { background: #5B21B6; }
+  .stack-row:nth-child(4) { background: #7C2D12; }
+  .stack-row:nth-child(5) { background: #1A1A2E; }
+
+  /* Stats */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .stat {
+    background: #F3F6FB;
+    padding: 16px 12px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid #E5E7EB;
+  }
+  .stat-num {
+    font-size: 22pt;
+    font-weight: 900;
+    color: #0B5ED7;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 9.5pt;
+    color: #6B7280;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <h1>CodeForge</h1>
+  <div class="tagline">מנוע ה-AI האוניברסלי לבניית כל דבר</div>
+  <div class="quote">
+    מערכת אחת. כל מסגרת פיתוח. כל פלטפורמה. כל פרויקט.<br>
+    מ-prompt בעברית לאפליקציה חיה בייצור — תוך דקות.
+  </div>
+  <div class="badge">מסמך תקציר · מבוסס על 15 מחקרים עצמאיים מעמיקים</div>
+</div>
+
+<!-- SECTION 1 -->
+<h1 class="section">🎯 מה זה CodeForge?</h1>
+<p>
+CodeForge היא <span class="highlight">מערכת AI שבונה תוכנה כמו מהנדס בכיר</span> — מקבלת תיאור בשפה טבעית
+ומייצרת פרויקטים מלאים: אתרים, אפליקציות web ו-mobile, backends, integrations, ו-data pipelines.
+עם חיבור ל-MCP, ניתוב חכם בין מודלי AI מרובים, ו-deploy לייצור בלחיצת כפתור.
+</p>
+<p>
+זו לא רק "עוד צ'אט AI לקוד" — זו <strong>תשתית</strong> שמשלבת את הטוב מ-Claude Code, v0, Bolt ו-Devin,
+ושמה את הבעלות, הגמישות והאוטונומיה בידיים שלך.
+</p>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">17</div><div class="stat-label">יכולות זהות ל-Claude Code</div></div>
+  <div class="stat"><div class="stat-num">10+</div><div class="stat-label">אינטגרציות MCP מ-day one</div></div>
+  <div class="stat"><div class="stat-num">60-80%</div><div class="stat-label">חיסכון בעלות API</div></div>
+</div>
+
+<!-- SECTION 2 -->
+<h1 class="section">✨ במה היא מיוחדת — 5 יתרונות תחרותיים</h1>
+
+<div class="feature">
+  <div class="feature-title">1. 🌐 לא נעולה למסגרת אחת</div>
+  v0, Bolt, Lovable — כולם תקועים על React + Next.js + Supabase. CodeForge בונה <strong>בכל דבר</strong>:
+  Next.js, SvelteKit, Vue, Django, Rails, Go, FastAPI, React Native, Expo, Electron, Unity, CLIs, ML pipelines.
+</div>
+
+<div class="feature">
+  <div class="feature-title">2. 🔌 MCP-Native מהיום הראשון</div>
+  אינטגרציה מובנית ל-10 שירותים מובילים: GitHub, Vercel, Cloudflare, Postgres, Supabase, Stripe, Figma, Playwright, Sentry, Filesystem+Git.
+  OAuth אוטומטי, hash-pinning להגנה, audit log מלא.
+</div>
+
+<div class="feature">
+  <div class="feature-title">3. 🧠 מנוע Multi-Provider חכם</div>
+  לא תלוי במודל אחד. ניתוב אוטומטי בין Claude Opus/Sonnet/Haiku + GPT-5.5 + Gemini 3.1 + Qwen3-Coder לפי המשימה.
+  <span class="highlight">חיסכון של 60-80%</span> בעלות API לעומת שימוש במודל קצה אחד.
+</div>
+
+<div class="feature">
+  <div class="feature-title">4. 🪞 חשיפה כ-MCP Server (Distribution Play)</div>
+  המערכת לא רק <em>צורכת</em> MCP — היא <em>מספקת</em> אותו. משתמשי Cursor, Claude Code, ChatGPT ו-Zed יכולים
+  לקרוא ל-CodeForge מתוך ה-IDE שלהם. הופך אותנו לתשתית של כל מי שכבר עובד עם AI ב-IDE.
+</div>
+
+<div class="feature">
+  <div class="feature-title">5. 🔬 Verification עם דפדפן אמיתי</div>
+  v0/Bolt עוצרים ב-typecheck. CodeForge פותח דפדפן, לוחץ על כפתורים <strong>ובודק שזה עובד</strong>.
+  תבנית Playwright Test Agents (אנת'רופיק, Oct 2025): plan → generate → execute → heal.
+</div>
+
+<h2>🧠 ניתוב חכם — איזה מודל למה?</h2>
+<table>
+<tr><th>משימה</th><th>מודל ראשי</th><th>סיבה</th></tr>
+<tr><td>תכנון ארכיטקטוני</td><td>Claude Opus 4.7</td><td>חשיבה עמוקה</td></tr>
+<tr><td>כתיבת קוד יומיומית</td><td>Claude Sonnet 4.6</td><td>מאוזן, חסכוני</td></tr>
+<tr><td>עריכות פשוטות</td><td>Claude Haiku 4.5</td><td>מהיר, זול פי 10</td></tr>
+<tr><td>Codebase ענק (&gt;500K שורות)</td><td>Gemini 3.1 Pro</td><td>חלון 1M tokens</td></tr>
+<tr><td>Terminal-heavy</td><td>GPT-5.5</td><td>הכי טוב ב-shell</td></tr>
+<tr><td>Privacy / On-prem</td><td>Qwen3-Coder 480B</td><td>open weights</td></tr>
+</table>
+
+<div class="pagebreak"></div>
+
+<!-- SECTION 3 -->
+<h1 class="section">🛠️ מה היא יודעת לעשות — מול Claude Code</h1>
+<p style="font-size: 13pt; color: #10A85A; font-weight: 700;">
+✅ כל מה ש-Claude Code יודע — CodeForge יודעת. <em>ועוד.</em>
+</p>
+
+<table>
+<tr><th>יכולת</th><th style="text-align:center; width:80px;">CodeForge</th><th style="text-align:center; width:90px;">Claude Code</th></tr>
+<tr><td>קריאת codebases עד 1M tokens</td><td style="text-align:center;"><span class="check">✓</span></td><td style="text-align:center;"><span class="check">✓</span></td></tr>
+<tr><td>עריכות multi-file עם diffs מדויקים</td><td style="text-align:center;"><span class="check">✓</span></td><td style="text-align:center;"><span class="check">✓</span></td></tr>
+<tr><td>הרצת Bash בסביבה מבוקרת</td><td style="text-align:center;"><span class="check">✓</span></td><td style="text-align:center;"><span class="check">✓</span></td></tr>
+<tr><td>חיפוש Web ושליפת דוקומנטציה</td><td style="text-align:center;"><span class="check">✓</span></td><td style="text-align:center;"><span class="check">✓</span></td></tr>
+<tr><td>MCP integrations (10+ שירותים)</td><td style="text-align:center;"><span class="check">✓</span></td><td style="text-align:center;"><span class="check">✓</span></td></tr>
+<tr><td>Multi-agent fan-out לחקירה במקביל</td><td style="text-align:center;"><span class="check">✓</span></td><td style="text-align:center;"><span class="check">✓</span></td></tr>
+<tr><td>Plan Mode עם אישור משתמש</td><td style="text-align:center;"><span class="check">✓</span></td><td style="text-align:center;"><span class="check">✓</span></td></tr>
+<tr><td>זיכרון ארוך-טווח (CLAUDE.md / SKILL.md)</td><td style="text-align:center;"><span class="check">✓</span></td><td style="text-align:center;"><span class="check">✓</span></td></tr>
+<tr><td>Skills library מתחזק את עצמו</td><td style="text-align:center;"><span class="check">✓</span></td><td style="text-align:center;"><span class="check">✓</span></td></tr>
+<tr><td>Hooks ואוטומציות מותאמות</td><td style="text-align:center;"><span class="check">✓</span></td><td style="text-align:center;"><span class="check">✓</span></td></tr>
+<tr><td>בדיקת UI בדפדפן אמיתי בלולאה</td><td style="text-align:center;"><span class="check">✓</span></td><td style="text-align:center;"><span class="partial">~</span></td></tr>
+<tr><td><strong>Live preview גרפי תוך כדי בנייה</strong></td><td style="text-align:center;"><span class="check">✓</span></td><td style="text-align:center;"><span class="cross">✗</span></td></tr>
+<tr><td><strong>Multi-provider routing</strong> (לא רק Claude)</td><td style="text-align:center;"><span class="check">✓</span></td><td style="text-align:center;"><span class="cross">✗</span></td></tr>
+<tr><td><strong>Deploy מובנה</strong> ל-Vercel/CF/Netlify</td><td style="text-align:center;"><span class="check">✓</span></td><td style="text-align:center;"><span class="cross">✗</span></td></tr>
+<tr><td><strong>ממשק Web</strong> ידידותי ללא-מפתחים</td><td style="text-align:center;"><span class="check">✓</span></td><td style="text-align:center;"><span class="cross">✗</span></td></tr>
+<tr><td><strong>ניהול ארגונים</strong>, צוותים, billing</td><td style="text-align:center;"><span class="check">✓</span></td><td style="text-align:center;"><span class="cross">✗</span></td></tr>
+<tr><td>BYOK (משתמשים מביאים API keys)</td><td style="text-align:center;"><span class="check">✓</span></td><td style="text-align:center;"><span class="partial">~</span></td></tr>
+<tr><td><strong>חשיפה כ-MCP server</strong> לכלים אחרים</td><td style="text-align:center;"><span class="check">✓</span></td><td style="text-align:center;"><span class="cross">✗</span></td></tr>
+</table>
+
+<h2>🌐 מה אפשר לבנות עם זה</h2>
+<ul>
+  <li>🛍️ <strong>אתרי מסחר</strong> — Shopify-like, Stripe מובנה, payment flows</li>
+  <li>📱 <strong>אפליקציות SaaS</strong> — auth, billing, dashboards, multi-tenancy</li>
+  <li>📊 <strong>כלי פנים-ארגוניים</strong> — admin panels, CRMs, BI dashboards</li>
+  <li>🤖 <strong>AI apps</strong> — chatbots, agents, RAG over data</li>
+  <li>🎮 <strong>משחקים ב-browser</strong> — Phaser, Three.js, WebGPU</li>
+  <li>📲 <strong>אפליקציות mobile</strong> — Expo + React Native</li>
+  <li>🔌 <strong>APIs ו-backends</strong> — REST, GraphQL, tRPC, gRPC</li>
+  <li>🛠️ <strong>CLI tools ו-scripts</strong> — Node, Python, Go</li>
+  <li>🧬 <strong>Data pipelines</strong> — ETL, scrapers, analytics</li>
+</ul>
+
+<div class="pagebreak"></div>
+
+<!-- SECTION 4 -->
+<h1 class="section">💰 השוואת עלויות מול Claude Code</h1>
+
+<div class="callout warn">
+  <div class="callout-title">❓ השאלה הכי חשובה — האם זה יעלה לי יותר?</div>
+  תשובה קצרה: <strong>לא.</strong> ובטווח הארוך — הרבה פחות. אתה ה-Engine. אתה קובע איך לשלם.
+</div>
+
+<h2>📊 שלוש דרכים להפעיל את CodeForge</h2>
+<table>
+<tr><th>מודל</th><th>עלות חודשית</th><th>יתרון</th></tr>
+<tr><td><strong>BYOK</strong> (Anthropic API ישיר)</td><td>רק token usage</td><td>אותו מחיר של Claude Code, בלי מגבלות messages</td></tr>
+<tr><td><strong>Multi-provider routing</strong></td><td><span class="highlight">60-80% פחות מ-Anthropic ישיר</span></td><td>ניתוב חכם למודל הזול ביותר שמספיק</td></tr>
+<tr><td><strong>Open weights</strong> (Qwen/DeepSeek)</td><td>~$0 (self-hosted)</td><td>עלות חומרה בלבד, פרטיות מלאה</td></tr>
+</table>
+
+<h2>🎯 דוגמה מספרית</h2>
+<table>
+<tr><th>פרמטר</th><th>Claude Code Max 5x</th><th>CodeForge עם BYOK</th></tr>
+<tr><td>מחיר חודשי</td><td><span class="price">$100 קבוע</span></td><td><span class="price">$30-50</span> לפי שימוש</td></tr>
+<tr><td>מגבלת הודעות</td><td>~225 / 5 שעות</td><td><strong>אין מגבלה</strong></td></tr>
+<tr><td>מספר ספקי AI</td><td>1 (Anthropic)</td><td><strong>6 ספקים</strong></td></tr>
+<tr><td>חיסכון יחסי</td><td>—</td><td><span class="check">$50-70/חודש</span></td></tr>
+</table>
+
+<div class="callout success">
+  <div class="callout-title">🚀 הבונוס של Prompt Caching</div>
+  Anthropic נותן <strong>90% הנחה</strong> על cache reads. עבור system prompt של 50K tokens שחוזר על עצמו —
+  חיסכון של 70-90% מעלות ה-input. CodeForge מנצל את זה כברירת מחדל.
+</div>
+
+<div class="pagebreak"></div>
+
+<!-- SECTION 5 -->
+<h1 class="section">🏛️ ארכיטקטורת המערכת</h1>
+<p><strong>חמש שכבות מובנות, כל אחת ניתנת להחלפה:</strong></p>
+
+<div class="stack">
+  <div class="stack-row">
+    <div class="label">1. שכבת ממשק (Frontend)</div>
+    <div class="desc">Next.js 15 + AI SDK v5 · Chat · Monaco Editor · Live Preview · File Tree</div>
+  </div>
+  <div class="stack-row">
+    <div class="label">2. שכבת Agent</div>
+    <div class="desc">Single-agent harness + sub-agents · כלים: Read · Edit · Write · Bash · Grep · Web · Browser</div>
+  </div>
+  <div class="stack-row">
+    <div class="label">3. שכבת אינטליגנציה</div>
+    <div class="desc">Multi-Provider Routing · MCP Gateway (10+ servers) · Sandbox (Firecracker microVMs)</div>
+  </div>
+  <div class="stack-row">
+    <div class="label">4. שכבת Storage &amp; Services</div>
+    <div class="desc">Neon Postgres + pgvector · Cloudflare R2 · WorkOS Auth · Stripe · Inngest</div>
+  </div>
+  <div class="stack-row">
+    <div class="label">5. שכבת Deploy</div>
+    <div class="desc">Vercel · Cloudflare Pages · Netlify · Custom infrastructure</div>
+  </div>
+</div>
+
+<h2>🧰 Tech Stack מומלץ</h2>
+<table>
+<tr><th>שכבה</th><th>טכנולוגיה</th><th>סיבה</th></tr>
+<tr><td>Frontend</td><td>Next.js 15 + TypeScript + Tailwind</td><td>תקן התעשייה לסוכני AI</td></tr>
+<tr><td>Streaming</td><td>Vercel AI SDK v5</td><td>typed end-to-end, resumable</td></tr>
+<tr><td>Editor</td><td>Monaco (desktop) + CodeMirror 6 (mobile)</td><td>VS Code DX</td></tr>
+<tr><td>Database</td><td>Neon Postgres + pgvector</td><td>branching ל-preview environments</td></tr>
+<tr><td>ORM</td><td>Drizzle</td><td>edge-compatible, מהיר</td></tr>
+<tr><td>Auth</td><td>WorkOS AuthKit</td><td>SSO חינמי עד 1M MAU</td></tr>
+<tr><td>Billing</td><td>Stripe + Paddle (MoR)</td><td>תמיכה ב-VAT ישראלי</td></tr>
+<tr><td>Sandbox</td><td>WebContainers + E2B</td><td>preview מיידי + heavy ops</td></tr>
+<tr><td>Observability</td><td>Langfuse + OpenLLMetry</td><td>OTel-native</td></tr>
+<tr><td>Jobs</td><td>Inngest</td><td>durable execution לסוכנים ארוכים</td></tr>
+</table>
+
+<div class="pagebreak"></div>
+
+<!-- SECTION 6 -->
+<h1 class="section">🔐 אבטחה ברמת Enterprise</h1>
+<p><strong>שבע שכבות הגנה מובנות מהיום הראשון:</strong></p>
+
+<div class="feature"><div class="feature-title">🛡️ Credential Proxy</div>המודל אף פעם לא רואה סודות אמיתיים — placeholders בלבד, החלפה במוצא</div>
+<div class="feature"><div class="feature-title">🏰 Sandbox-per-session</div>Firecracker microVMs עם בידוד קרנל מלא לכל הרצה</div>
+<div class="feature"><div class="feature-title">🚫 Deny Rules</div>rm -rf, git push --force, DROP TABLE — חסומים בקוד</div>
+<div class="feature"><div class="feature-title">🔗 MCP Hash-Pinning</div>הגנה מפני התקפת MCPoison (CVE-2025-54136)</div>
+<div class="feature"><div class="feature-title">🤖 Pre-execution Classifier</div>Lakera + Llama Prompt Guard 2 לסינון פקודות הרסניות</div>
+<div class="feature"><div class="feature-title">📋 Audit Log מלא</div>ClickHouse עם Merkle chain חתום לכל פעולה</div>
+<div class="feature"><div class="feature-title">✅ SOC 2 Type 2 Track</div>מהיום הראשון עם Vanta, מוכן ל-enterprise תוך 9-12 חודשים</div>
+
+<h1 class="section">📈 מודל עסקי</h1>
+<table>
+<tr><th></th><th>Free</th><th>Pro</th><th>Team</th><th>Enterprise</th></tr>
+<tr><td>מחיר</td><td>$0</td><td><span class="price">$25/חודש</span></td><td>$35/seat</td><td>Custom</td></tr>
+<tr><td>Credits/חודש</td><td>30</td><td>150</td><td>200/seat</td><td>∞</td></tr>
+<tr><td>פרויקטים פרטיים</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
+<tr><td>Custom domain</td><td>—</td><td>1</td><td>5</td><td>∞</td></tr>
+<tr><td>SSO</td><td>—</td><td>—</td><td>Google</td><td>SAML/SCIM</td></tr>
+<tr><td>BYOK</td><td>—</td><td>—</td><td>—</td><td><span class="check">✓</span></td></tr>
+<tr><td>SLA</td><td>—</td><td>—</td><td>—</td><td>99.9%</td></tr>
+</table>
+
+<div class="callout">
+  <div class="callout-title">💎 כלכלת היחידה</div>
+  3x markup על עלות API → <strong>65-70% gross margin</strong>. עם prompt caching אגרסיבי,
+  יעד $25 ARPU עם $7-9 עלות = $16-18 רווח גולמי לחודש לכל משתמש Pro.
+</div>
+
+<div class="pagebreak"></div>
+
+<!-- SECTION 7 -->
+<h1 class="section">🚀 לוח זמנים — מ-0 ל-MVP בשישה חודשים</h1>
+<table>
+<tr><th style="width:60px;">חודש</th><th style="width:130px;">שלב</th><th>תוצר</th></tr>
+<tr><td style="text-align:center; font-weight:700; color:#0B5ED7; font-size:14pt;">1</td><td><strong>Foundation</strong></td><td>Next.js + Postgres + Auth + Stripe</td></tr>
+<tr><td style="text-align:center; font-weight:700; color:#0B5ED7; font-size:14pt;">2</td><td><strong>Agent Core</strong></td><td>Streaming loop + 7 כלים + caching</td></tr>
+<tr><td style="text-align:center; font-weight:700; color:#0B5ED7; font-size:14pt;">3</td><td><strong>UI/UX</strong></td><td>Chat + Monaco + file tree + iframe preview</td></tr>
+<tr><td style="text-align:center; font-weight:700; color:#0B5ED7; font-size:14pt;">4</td><td><strong>Execution</strong></td><td>WebContainers + E2B + Playwright verify</td></tr>
+<tr><td style="text-align:center; font-weight:700; color:#0B5ED7; font-size:14pt;">5</td><td><strong>Hardening</strong></td><td>Multi-provider + Observability + Security</td></tr>
+<tr><td style="text-align:center; font-weight:700; color:#0B5ED7; font-size:14pt;">6</td><td><strong>Differentiation</strong></td><td>MCP gateway + Skills library + A/B + SOC 2</td></tr>
+</table>
+
+<h1 class="section">🎯 למה זה הזמן הנכון</h1>
+<ul>
+  <li>📊 <strong>SWE-bench Verified הגיע ל-82%</strong> ב-2026 — סוכנים אוטונומיים על משימות אמיתיות</li>
+  <li>💵 <strong>Lovable עשתה $100M ARR ב-8 חודשים</strong>, Cursor חצתה $500M ARR</li>
+  <li>🌍 <strong>MCP הפך לתקן</strong> — Anthropic, OpenAI, Cursor, Zed, Windsurf, ChatGPT</li>
+  <li>🔑 <strong>תעלת אמיתית נסגרת מהר</strong> — מי שלא משחק עכשיו לא ישחק בכלל</li>
+  <li>🇮🇱 <strong>שוק ישראל</strong> חסר פתרון מקומי עם תמיכה בעברית ו-RTL</li>
+</ul>
+
+<h1 class="section">💡 שורה תחתונה</h1>
+<p style="font-size: 14pt; font-weight: 700; color: #0B5ED7;">
+CodeForge הופכת אותך מ-<em>משתמש</em> של Claude Code ל-<strong>בעלים</strong> של מנוע AI עצמאי.
+</p>
+
+<ul style="list-style: none; padding: 0;">
+  <li style="margin: 8px 0; font-weight:700; color:#10A85A;">✅ כל היכולות של Claude Code — וגם יותר</li>
+  <li style="margin: 8px 0; font-weight:700; color:#10A85A;">✅ עלות נמוכה יותר תוך שליטה מלאה</li>
+  <li style="margin: 8px 0; font-weight:700; color:#10A85A;">✅ ממשק Web יפה לא-מפתחים, API למפתחים</li>
+  <li style="margin: 8px 0; font-weight:700; color:#10A85A;">✅ אינטגרציה עם 10+ שירותים דרך MCP</li>
+  <li style="margin: 8px 0; font-weight:700; color:#10A85A;">✅ אסטרטגיית distribution דרך חשיפת המערכת כ-MCP server</li>
+  <li style="margin: 8px 0; font-weight:700; color:#10A85A;">✅ אבטחה ו-compliance ברמת enterprise</li>
+</ul>
+
+<div class="callout warn">
+  <div class="callout-title">🚀 צעד אחד מהפעלה</div>
+  זה לא רק "Claude Code שלי". זו <strong>הפלטפורמה</strong> שעליה אבנה את כל מה שעוד יבוא.
+  אישור החזון → Phase 1 (Foundation) → MVP חי תוך 90 יום.
+</div>
+
+<div class="footer">
+  מסמך זה הוא תקציר של 15 מחקרים עצמאיים מעמיקים: ניתוח מתחרים, ארכיטקטורת סוכנים, מודלי AI, sandboxes, MCP, אבטחה, observability, תמחור, ועוד.
+</div>
+
+</body>
+</html>
