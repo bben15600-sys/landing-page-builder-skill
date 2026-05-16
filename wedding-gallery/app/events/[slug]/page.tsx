@@ -9,7 +9,8 @@ export default async function EventPublicPage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
+  const { slug: raw } = await params;
+  const slug = decodeURIComponent(raw);
 
   const { data: event } = await supabase
     .from("events")
