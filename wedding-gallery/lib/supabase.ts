@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://pqykgrfajugcmqqhvcvz.supabase.co";
+const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "sb_publishable_GKRDK5L48NihXuvTy1J3wg_HFtR8hsp";
 
 export const supabase = createClient(url, key, {
   auth: { persistSession: false },
@@ -26,6 +26,5 @@ export type Photo = {
 };
 
 export function publicPhotoUrl(storagePath: string): string {
-  const base = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  return `${base}/storage/v1/object/public/photos/${storagePath}`;
+  return `${url}/storage/v1/object/public/photos/${storagePath}`;
 }
