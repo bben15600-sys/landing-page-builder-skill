@@ -1,19 +1,28 @@
 "use client";
 
-import * as faceapi from "@vladmandic/face-api";
+import type * as FaceApi from "@vladmandic/face-api";
 
 const MODEL_URL = "https://cdn.jsdelivr.net/npm/@vladmandic/face-api@latest/model";
 
+let faceapi: typeof FaceApi | null = null;
 let loaded = false;
 let loading: Promise<void> | null = null;
+
+async function getFaceApi(): Promise<typeof FaceApi> {
+  if (faceapi) return faceapi;
+  const mod = await import("@vladmandic/face-api");
+  faceapi = mod;
+  return mod;
+}
 
 export async function loadFaceModels() {
   if (loaded) return;
   if (loading) return loading;
   loading = (async () => {
-    await faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL);
-    await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
-    await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
+    const api = await getFaceApi();
+    await api.nets.ssdMobilenetv1.loadFromUri(MODEL_URL);
+    await api.nets.faceLandmark68Net.loadFromUri(MODEL_URL);
+    await api.nets.faceRecognitionNet.loadFromUri(MODEL_URL);
     loaded = true;
   })();
   return loading;
@@ -26,7 +35,8 @@ export type FaceDetection = {
 
 export async function detectFaces(image: HTMLImageElement | HTMLCanvasElement): Promise<FaceDetection[]> {
   await loadFaceModels();
-  const results = await faceapi
+  const api = await getFaceApi();
+  const results = await api
     .detectAllFaces(image)
     .withFaceLandmarks()
     .withFaceDescriptors();
