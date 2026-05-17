@@ -1,3 +1,7 @@
+# Wedding Gallery
+
+Multi-tenant event gallery with face-search selfie matching, built on Next.js 16 and Supabase.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
