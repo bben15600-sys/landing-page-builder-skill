@@ -1,6 +1,9 @@
 import { notFound } from "next/navigation";
 import { Calendar } from "lucide-react";
 import { supabase, type Event, type Photo, publicPhotoUrl } from "@/lib/supabase";
+import { FilmGrain } from "@/components/site/film-grain";
+import { Footer } from "@/components/site/footer";
+import { Header } from "@/components/site/header";
 import { EventGallery } from "./event-gallery";
 
 export const dynamic = "force-dynamic";
@@ -34,34 +37,44 @@ export default async function EventPublicPage({
 
   return (
     <>
-      <section className="relative h-[55vh] min-h-[320px] max-h-[560px] w-full overflow-hidden">
-        {coverUrl ? (
-          <img
-            src={coverUrl}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-zinc-700 to-zinc-900" />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/20" />
-        <div className="relative h-full flex flex-col items-center justify-end text-center px-6 pb-12 text-white">
-          <h1 className="font-serif text-4xl sm:text-6xl mb-3 drop-shadow">{ev.title}</h1>
-          {ev.date && (
-            <p className="inline-flex items-center gap-2 text-sm sm:text-base text-white/90">
-              <Calendar className="h-4 w-4" />
-              {ev.date}
-            </p>
+      <FilmGrain />
+      <Header />
+      <main className="flex-1">
+        <section className="relative h-[70vh] min-h-[420px] max-h-[680px] w-full overflow-hidden">
+          {coverUrl ? (
+            <img
+              src={coverUrl}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-zinc-800 to-zinc-950" />
           )}
-          <p className="mt-3 text-xs sm:text-sm text-white/70">
-            {list.length} תמונות
-          </p>
-        </div>
-      </section>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/40" />
+          <div className="relative h-full flex flex-col items-center justify-end text-center px-6 pb-14 sm:pb-20 text-white">
+            <p className="text-xs tracking-[0.4em] uppercase text-white/70 mb-4">
+              גלריה
+            </p>
+            <h1 className="font-display text-5xl sm:text-7xl md:text-8xl mb-4 drop-shadow-lg">
+              <span className="italic-display">{ev.title}</span>
+            </h1>
+            {ev.date && (
+              <p className="inline-flex items-center gap-2 text-sm sm:text-base text-white/90">
+                <Calendar className="h-4 w-4" />
+                {ev.date}
+              </p>
+            )}
+            <p className="mt-3 text-xs sm:text-sm tracking-[0.25em] uppercase text-white/60">
+              {list.length} תמונות
+            </p>
+          </div>
+        </section>
 
-      <main className="mx-auto max-w-6xl px-6 py-10">
-        <EventGallery eventId={ev.id} eventTitle={ev.title} photos={items} />
+        <div className="mx-auto max-w-6xl px-5 sm:px-8 py-14 sm:py-20">
+          <EventGallery eventId={ev.id} eventTitle={ev.title} photos={items} />
+        </div>
       </main>
+      <Footer />
     </>
   );
 }

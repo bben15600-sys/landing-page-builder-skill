@@ -1,60 +1,20 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef } from "react";
 import { ArrowLeft } from "lucide-react";
 import { Reveal } from "./reveal";
 
-const u = (id: string, w = 1400) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
+export type FeaturedWedding = {
+  id: string;
+  slug: string;
+  title: string;
+  date: string;
+  cover: string;
+};
 
-const FEATURED = [
-  {
-    id: "f1",
-    couple: "Adva & Tomer",
-    date: "FEB 2025",
-    location: "Tel Aviv",
-    teaser:
-      "Where laughter outshone the lights and the dancefloor never closed.",
-    cover: u("photo-1519741497674-611481863552"),
-  },
-  {
-    id: "f2",
-    couple: "Mika & Yotam",
-    date: "JUN 2024",
-    location: "Jerusalem Hills",
-    teaser:
-      "A quiet morning chuppah at sunrise — and a story that hasn't stopped.",
-    cover: u("photo-1606800052052-a08af7148866"),
-  },
-  {
-    id: "f3",
-    couple: "Noa & Idan",
-    date: "SEP 2024",
-    location: "The Galilee",
-    teaser:
-      "Lake-side vows, hand-drawn ketuba, and four hundred dancing souls.",
-    cover: u("photo-1464366400600-7168b8af9bc3"),
-  },
-  {
-    id: "f4",
-    couple: "Tamar & Asaf",
-    date: "APR 2024",
-    location: "Caesarea",
-    teaser: "Mediterranean wind, white linen, and the loudest 'yes' I've heard.",
-    cover: u("photo-1525772764200-be829a350797"),
-  },
-  {
-    id: "f5",
-    couple: "Yael & Daniel",
-    date: "NOV 2023",
-    location: "Sde Boker",
-    teaser: "Desert at golden hour. Just them, just the wind, just the camera.",
-    cover: u("photo-1583939003579-730e3918a45a"),
-  },
-];
-
-export function FeaturedWeddings() {
+export function FeaturedWeddings({ items }: { items: FeaturedWedding[] }) {
   const trackRef = useRef<HTMLDivElement | null>(null);
 
   const scroll = (dir: 1 | -1) => {
@@ -101,47 +61,54 @@ export function FeaturedWeddings() {
         </Reveal>
       </div>
 
-      <div
-        ref={trackRef}
-        className="flex gap-5 sm:gap-7 overflow-x-auto scrollbar-hide snap-x snap-mandatory px-5 sm:px-8 pb-2"
-        style={{ scrollPaddingInline: "1.25rem" }}
-      >
-        {FEATURED.map((w, idx) => (
-          <article
-            key={w.id}
-            className="snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[480px] group"
-            data-cursor="view"
-          >
-            <div className="relative aspect-[4/5] overflow-hidden bg-card">
-              <Image
-                src={w.cover}
-                alt={w.couple}
-                fill
-                sizes="(min-width:768px) 480px, 82vw"
-                className="object-cover grayscale group-hover:grayscale-0 transition-[filter,transform] duration-700 group-hover:scale-105"
-              />
-              <div className="absolute top-4 right-4 left-4 flex justify-between items-start text-white text-[10px] tracking-[0.3em]">
-                <span>{w.date}</span>
-                <span>0{idx + 1} / 0{FEATURED.length}</span>
-              </div>
-              <div className="absolute bottom-0 inset-x-0 p-5 sm:p-6 bg-gradient-to-t from-black/85 to-transparent">
-                <div className="text-white">
-                  <div className="text-[10px] tracking-[0.35em] uppercase text-white/70 mb-2">
-                    {w.location}
+      {items.length === 0 ? (
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <p className="text-muted-foreground italic-display text-lg">
+            עוד לא הוצגו כאן סיפורים — בקרוב.
+          </p>
+        </div>
+      ) : (
+        <div
+          ref={trackRef}
+          className="flex gap-5 sm:gap-7 overflow-x-auto scrollbar-hide snap-x snap-mandatory px-5 sm:px-8 pb-2"
+          style={{ scrollPaddingInline: "1.25rem" }}
+        >
+          {items.map((w, idx) => (
+            <Link
+              key={w.id}
+              href={`/events/${w.slug}`}
+              className="snap-start shrink-0 w-[82vw] sm:w-[420px] md:w-[480px] group block"
+              data-cursor="view"
+            >
+              <div className="relative aspect-[4/5] overflow-hidden bg-card">
+                <Image
+                  src={w.cover}
+                  alt={w.title}
+                  fill
+                  sizes="(min-width:768px) 480px, 82vw"
+                  unoptimized
+                  className="object-cover grayscale group-hover:grayscale-0 transition-[filter,transform] duration-700 group-hover:scale-105"
+                />
+                <div className="absolute top-4 right-4 left-4 flex justify-between items-start text-white text-[10px] tracking-[0.3em]">
+                  <span>{w.date}</span>
+                  <span>0{idx + 1} / 0{items.length}</span>
+                </div>
+                <div className="absolute bottom-0 inset-x-0 p-5 sm:p-6 bg-gradient-to-t from-black/85 to-transparent">
+                  <div className="text-white">
+                    <div className="text-[10px] tracking-[0.35em] uppercase text-white/70 mb-2">
+                      צפו בגלריה
+                    </div>
+                    <h3 className="font-display italic-display text-3xl leading-tight">
+                      {w.title}
+                    </h3>
                   </div>
-                  <h3 className="font-display italic-display text-3xl leading-tight">
-                    {w.couple}
-                  </h3>
                 </div>
               </div>
-            </div>
-            <p className="mt-4 text-sm text-muted-foreground italic-display leading-relaxed">
-              {w.teaser}
-            </p>
-          </article>
-        ))}
-        <div className="shrink-0 w-5 sm:w-8" aria-hidden />
-      </div>
+            </Link>
+          ))}
+          <div className="shrink-0 w-5 sm:w-8" aria-hidden />
+        </div>
+      )}
     </section>
   );
 }
