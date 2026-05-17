@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F0E5D2"/>
+      <stop offset="60%" stop-color="#E8DCC4"/>
+      <stop offset="100%" stop-color="#D8C5A8"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#B8956A"/>
+      <stop offset="50%" stop-color="#D4B17F"/>
+      <stop offset="100%" stop-color="#A8855A"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#B8956A" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#B8956A" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- Soft glow -->
+  <circle cx="600" cy="280" r="350" fill="url(#glow)"/>
+  <!-- Decorative butterflies (subtle) -->
+  <g opacity="0.20" transform="translate(80, 60) rotate(-15)">
+    <path d="M 0,0 Q 30,-20 50,-5 Q 70,-20 100,0 Q 70,20 50,5 Q 30,20 0,0 Z" fill="#F5E8D0"/>
+  </g>
+  <g opacity="0.20" transform="translate(1050, 530) rotate(15)">
+    <path d="M 0,0 Q 30,-20 50,-5 Q 70,-20 100,0 Q 70,20 50,5 Q 30,20 0,0 Z" fill="#F5E8D0"/>
+  </g>
+  <!-- Logo circle -->
+  <g transform="translate(600, 220)">
+    <circle cx="0" cy="0" r="130" fill="none" stroke="url(#gold)" stroke-width="2.2"/>
+    <circle cx="0" cy="0" r="125" fill="none" stroke="url(#gold)" stroke-width="1.2" opacity="0.6"/>
+    <!-- Blue flower -->
+    <g transform="translate(0, -65)">
+      <g fill="#9CB5CC" stroke="#7A95B0" stroke-width="0.6">
+        <ellipse cx="0" cy="-12" rx="8" ry="11"/>
+        <ellipse cx="11" cy="-3.5" rx="8" ry="11" transform="rotate(72 11 -3.5)"/>
+        <ellipse cx="7" cy="10" rx="8" ry="11" transform="rotate(144 7 10)"/>
+        <ellipse cx="-7" cy="10" rx="8" ry="11" transform="rotate(216 -7 10)"/>
+        <ellipse cx="-11" cy="-3.5" rx="8" ry="11" transform="rotate(288 -11 -3.5)"/>
+      </g>
+      <circle cx="0" cy="0" r="5" fill="#B8956A"/>
+    </g>
+    <!-- LIVNAT -->
+    <text x="0" y="20" text-anchor="middle"
+      font-family="Georgia, 'Times New Roman', serif"
+      font-size="44" font-style="italic" font-weight="400"
+      fill="url(#gold)" letter-spacing="7">LIVNAT</text>
+  </g>
+  <!-- Hebrew owner name -->
+  <text x="600" y="430" text-anchor="middle"
+    font-family="Arial, 'Heebo', sans-serif"
+    font-size="48" font-weight="700"
+    fill="#3A2E20" direction="rtl">ליבנת אדרי</text>
+  <!-- Tagline -->
+  <text x="600" y="490" text-anchor="middle"
+    font-family="Arial, 'Heebo', sans-serif"
+    font-size="32" font-weight="500"
+    fill="#B8956A" direction="rtl">בואי לחוות את השינוי בעורך</text>
+  <!-- Decorative line -->
+  <line x1="500" y1="520" x2="700" y2="520" stroke="url(#gold)" stroke-width="0.8" opacity="0.5"/>
+  <!-- Subtitle -->
+  <text x="600" y="556" text-anchor="middle"
+    font-family="Arial, 'Heebo', sans-serif"
+    font-size="22" font-weight="400"
+    fill="#5A4838" direction="rtl">22 שנות ניסיון · גישת עור ונפש · קליניקה פרטית בחדרה</text>
+</svg>
