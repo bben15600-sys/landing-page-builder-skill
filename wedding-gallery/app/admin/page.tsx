@@ -3,6 +3,7 @@ import { Upload, Calendar } from "lucide-react";
 import { supabase, type Event } from "@/lib/supabase";
 import { CreateEventForm } from "./create-event-form";
 import { ShareLink } from "./share-link";
+import { LogoutButton } from "./logout-button";
 
 export const dynamic = "force-dynamic";
 
@@ -16,7 +17,10 @@ export default async function AdminPage() {
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-12">
-      <h1 className="text-3xl font-semibold mb-2">ניהול אירועים</h1>
+      <div className="flex items-start justify-between gap-4 mb-2">
+        <h1 className="text-3xl font-semibold">ניהול אירועים</h1>
+        <LogoutButton />
+      </div>
       <p className="text-sm text-muted-foreground mb-8">
         כל אירוע מקבל קישור ציבורי שאפשר לשלוח לאורחים.
       </p>
