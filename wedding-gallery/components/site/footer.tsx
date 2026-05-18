@@ -26,20 +26,23 @@ export function Footer() {
               קישורים
             </p>
             <nav className="flex flex-col gap-2 text-sm">
-              <a href="/#featured" className="hover:text-accent transition-colors">
-                סיפורים
+              <a href="#search" className="hover:text-accent transition-colors">
+                חיפוש חכם
               </a>
-              <a href="/events" className="hover:text-accent transition-colors">
-                כל הגלריות
+              <a href="#albums" className="hover:text-accent transition-colors">
+                אלבומים
               </a>
-              <a href="/#services" className="hover:text-accent transition-colors">
-                שירותים
+              <a href="#gallery" className="hover:text-accent transition-colors">
+                גלריה מלאה
               </a>
-              <a href="/#packages" className="hover:text-accent transition-colors">
-                השקעה
+              <a
+                href="#favorites"
+                className="hover:text-accent transition-colors"
+              >
+                התמונות שלי
               </a>
-              <a href="/#contact" className="hover:text-accent transition-colors">
-                תיאום צילום
+              <a href="#share" className="hover:text-accent transition-colors">
+                שיתוף והמלצה
               </a>
             </nav>
           </div>

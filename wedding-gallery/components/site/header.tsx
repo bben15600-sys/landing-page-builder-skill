@@ -1,26 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "./site-config";
 
 const navItems = [
-  { hash: "featured", label: "סיפורים" },
-  { hash: "services", label: "שירותים" },
-  { hash: "about", label: "על הצלם" },
-  { hash: "gallery", label: "גלריה" },
-  { hash: "packages", label: "השקעה" },
-  { hash: "contact", label: "תיאום" },
+  { href: "#featured", label: "סיפורים" },
+  { href: "#services", label: "שירותים" },
+  { href: "#about", label: "על הצלם" },
+  { href: "#gallery", label: "גלריה" },
+  { href: "#packages", label: "השקעה" },
+  { href: "#contact", label: "תיאום" },
 ];
 
 export function Header() {
-  const pathname = usePathname();
-  const isHome = pathname === "/";
-  const linkFor = (hash: string) => (isHome ? `#${hash}` : `/#${hash}`);
-  const homeHref = isHome ? "#top" : "/";
-
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -35,14 +29,14 @@ export function Header() {
     <header
       className={cn(
         "fixed top-0 inset-x-0 z-40 transition-all duration-500",
-        scrolled || !isHome
+        scrolled
           ? "bg-background/80 backdrop-blur-xl border-b border-border"
           : "bg-transparent",
       )}
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8 flex items-center justify-between h-16 sm:h-18">
         <a
-          href={homeHref}
+          href="#top"
           className="flex flex-col leading-none group"
           aria-label="ראשי"
           data-cursor="hover"
@@ -58,8 +52,8 @@ export function Header() {
         <nav className="hidden md:flex items-center gap-7">
           {navItems.map((item) => (
             <a
-              key={item.hash}
-              href={linkFor(item.hash)}
+              key={item.href}
+              href={item.href}
               data-cursor="hover"
               className="text-sm text-foreground/80 hover:text-foreground transition-colors relative group"
             >
@@ -85,8 +79,8 @@ export function Header() {
           <nav className="px-5 py-6 flex flex-col gap-5">
             {navItems.map((item) => (
               <a
-                key={item.hash}
-                href={linkFor(item.hash)}
+                key={item.href}
+                href={item.href}
                 className="text-base text-foreground/90 hover:text-foreground transition-colors"
                 onClick={() => setOpen(false)}
               >
