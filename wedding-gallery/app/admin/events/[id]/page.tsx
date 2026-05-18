@@ -4,6 +4,8 @@ import { ArrowRight } from "lucide-react";
 import { supabase, type Event, type Photo, publicPhotoUrl } from "@/lib/supabase";
 import { UploadPhotos } from "./upload-photos";
 import { ShareLink } from "../../share-link";
+import { EventSettings } from "./event-settings";
+import { PhotoTile } from "./photo-tile";
 
 export const dynamic = "force-dynamic";
 
@@ -50,26 +52,38 @@ export default async function AdminEventPage({
         <ShareLink path={`/events/${ev.slug}`} />
       </section>
 
+      <section className="mb-8 rounded-lg border p-6">
+        <h2 className="text-lg font-medium mb-4">פרטי האירוע</h2>
+        <EventSettings event={ev} />
+      </section>
+
       <section className="mb-10 rounded-lg border p-6">
         <h2 className="text-lg font-medium mb-4">העלאת תמונות</h2>
         <UploadPhotos eventId={ev.id} />
       </section>
 
       <section>
-        <h2 className="text-lg font-medium mb-4">תמונות ({list.length})</h2>
+        <h2 className="text-lg font-medium mb-2">תמונות ({list.length})</h2>
+        <p className="text-xs text-muted-foreground mb-4">
+          העבר עכבר על תמונה כדי להגדיר אותה כשער או למחוק.
+        </p>
         {list.length === 0 ? (
           <p className="text-sm text-muted-foreground">עוד לא הועלו תמונות.</p>
         ) : (
           <div className="grid grid-cols-3 md:grid-cols-4 gap-3">
-            {list.map((p) => (
-              <div key={p.id} className="aspect-square overflow-hidden rounded bg-muted">
-                <img
-                  src={publicPhotoUrl(p.storage_path)}
-                  alt=""
-                  className="w-full h-full object-cover"
+            {list.map((p) => {
+              const url = publicPhotoUrl(p.storage_path);
+              return (
+                <PhotoTile
+                  key={p.id}
+                  photoId={p.id}
+                  storagePath={p.storage_path}
+                  url={url}
+                  eventId={ev.id}
+                  isCover={ev.cover_url === url}
                 />
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </section>

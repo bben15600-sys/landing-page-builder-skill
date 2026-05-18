@@ -19,15 +19,17 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: `${siteConfig.couple.bride} & ${siteConfig.couple.groom} · ${siteConfig.event.date}`,
-  description: `הגלריה הרשמית של החתונה של ${siteConfig.couple.bride} ו${siteConfig.couple.groom}. צילום בהנחיית ${siteConfig.photographer.name}.`,
+  title: {
+    default: `${siteConfig.brand.nameEn} · ${siteConfig.brand.suffix}`,
+    template: `%s · ${siteConfig.brand.nameEn}`,
+  },
+  description: `${siteConfig.photographer.name} — צילום חתונות וסיפורים. פורטפוליו וגלריות לאורחים.`,
   openGraph: {
-    title: `${siteConfig.couple.bride} & ${siteConfig.couple.groom}`,
-    description: `הגלריה הרשמית של חתונת ${siteConfig.couple.bride} ו${siteConfig.couple.groom}`,
+    title: `${siteConfig.brand.nameEn} · ${siteConfig.brand.suffix}`,
+    description: `${siteConfig.photographer.name} — צילום חתונות וסיפורים`,
     type: "website",
     locale: "he_IL",
   },
-  robots: { index: false, follow: false },
 };
 
 export default function RootLayout({

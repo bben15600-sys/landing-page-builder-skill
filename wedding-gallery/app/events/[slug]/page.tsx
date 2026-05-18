@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Calendar } from "lucide-react";
 import { supabase, type Event, type Photo, publicPhotoUrl } from "@/lib/supabase";
@@ -7,6 +8,58 @@ import { Header } from "@/components/site/header";
 import { EventGallery } from "./event-gallery";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug: raw } = await params;
+  const slug = decodeURIComponent(raw);
+  const { data: event } = await supabase
+    .from("events")
+    .select("id, title, date, cover_url")
+    .eq("slug", slug)
+    .single();
+  if (!event) return { title: "גלריה" };
+
+  const ev = event as Event;
+  let cover = ev.cover_url;
+  if (!cover) {
+    const { data: photo } = await supabase
+      .from("photos")
+      .select("storage_path")
+      .eq("event_id", ev.id)
+      .order("created_at", { ascending: true })
+      .limit(1)
+      .maybeSingle();
+    if (photo) cover = publicPhotoUrl((photo as Photo).storage_path);
+  }
+
+  const title = ev.title;
+  const date = ev.date;
+  const description = date
+    ? `הגלריה הרשמית של ${title} · ${date}`
+    : `הגלריה הרשמית של ${title}`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      locale: "he_IL",
+      images: cover ? [{ url: cover }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: cover ? [cover] : undefined,
+    },
+  };
+}
 
 export default async function EventPublicPage({
   params,
