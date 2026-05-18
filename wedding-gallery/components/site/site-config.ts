@@ -44,19 +44,19 @@ export const siteConfig = {
       "ערב אחד של אור, צבע ונשמה — תיעוד שלם של היום שהפך לזיכרון.",
   },
   photographer: {
-    name: "רון קובי",
-    nameEn: "RON KOBI",
-    handle: "@ronkobi.photo",
+    name: "שי שלום",
+    nameEn: "SHAI SHALOM",
+    handle: "@shaishalom.photo",
     avatar: u("photo-1507003211169-0a1dd7228f2d", 400),
     bio: "צלם חתונות ואירועים, מאמין בסיפור שמאחורי כל מבט.",
     phone: "054-000-0000",
     whatsapp: "972540000000",
     email: "info@example.com",
-    instagram: "https://instagram.com/ronkobi.photo",
+    instagram: "https://instagram.com/shaishalom.photo",
   },
   brand: {
-    nameEn: "RON KOBI",
-    nameHe: "רון קובי",
+    nameEn: "SHAI SHALOM",
+    nameHe: "שי שלום",
     suffix: "WEDDING STORIES",
   },
   locker: {
@@ -165,7 +165,7 @@ export const siteConfig = {
   testimonials: [
     {
       quote:
-        "רון הוא יותר מצלם — הוא נשמה שמתעדת נשמה. כל פריים מספר סיפור.",
+        "שי הוא יותר מצלם — הוא נשמה שמתעדת נשמה. כל פריים מספר סיפור.",
       name: "מיכל ויונתן",
       role: "חתונה · יוני 2024",
     },

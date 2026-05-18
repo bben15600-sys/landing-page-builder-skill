@@ -8,8 +8,8 @@ type Props = {
 };
 
 const DEFAULT_ITEMS = [
-  "רון קובי",
-  "RON KOBI",
+  "שי שלום",
+  "SHAI SHALOM",
   "מתעד אהבה",
   "EST 2013",
   "סיפורים של חתונות",
