@@ -93,12 +93,12 @@ export default async function OpengraphImage() {
             <div
               style={{
                 marginTop: 28,
-                fontSize: 26,
+                fontSize: 28,
                 color: "rgba(255,255,255,0.75)",
-                maxWidth: 760,
+                letterSpacing: "0.05em",
               }}
             >
-              צלם חתונות ואירועים · סיפור שמאחורי כל מבט
+              Wedding photography — the story behind every glance
             </div>
           </div>
 
