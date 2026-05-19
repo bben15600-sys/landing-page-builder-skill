@@ -1,6 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
+// Flip to false to take the site out of "coming soon" mode and expose
+// the full portfolio + gallery again.
+const COMING_SOON = true;
+
 const SUPABASE_URL =
   process.env.NEXT_PUBLIC_SUPABASE_URL || "https://pqykgrfajugcmqqhvcvz.supabase.co";
 const SUPABASE_KEY =
@@ -8,6 +12,22 @@ const SUPABASE_KEY =
   "sb_publishable_GKRDK5L48NihXuvTy1J3wg_HFtR8hsp";
 
 export async function proxy(req: NextRequest) {
+  const path = req.nextUrl.pathname;
+
+  if (
+    COMING_SOON &&
+    path !== "/soon" &&
+    !path.startsWith("/admin") &&
+    !path.startsWith("/_next") &&
+    path !== "/opengraph-image" &&
+    path !== "/favicon.ico"
+  ) {
+    const url = req.nextUrl.clone();
+    url.pathname = "/soon";
+    url.search = "";
+    return NextResponse.rewrite(url);
+  }
+
   let res = NextResponse.next({ request: req });
 
   const supabase = createServerClient(SUPABASE_URL, SUPABASE_KEY, {
@@ -26,7 +46,6 @@ export async function proxy(req: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const path = req.nextUrl.pathname;
   const isLogin = path === "/admin/login";
 
   if (path.startsWith("/admin") && !isLogin && !user) {
@@ -47,5 +66,5 @@ export async function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/((?!_next/static|_next/image).*)"],
 };
