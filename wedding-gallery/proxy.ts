@@ -3,7 +3,7 @@ import { createServerClient } from "@supabase/ssr";
 
 // Flip to false to take the site out of "coming soon" mode and expose
 // the full portfolio + gallery again.
-const COMING_SOON = true;
+const COMING_SOON = false;
 
 const SUPABASE_URL =
   process.env.NEXT_PUBLIC_SUPABASE_URL || "https://pqykgrfajugcmqqhvcvz.supabase.co";
