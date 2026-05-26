@@ -1,0 +1,317 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0a0610;
+  --background-deep: #050308;
+  --foreground: #f6f0ff;
+  --muted: #9a86b8;
+  --muted-foreground: #c7b9de;
+  --border: rgba(190, 130, 255, 0.12);
+  --border-strong: rgba(190, 130, 255, 0.32);
+  --card: #140b1f;
+  --card-hover: #1b1029;
+  --accent: #c13bff;
+  --accent-2: #ff3bd4;
+  --accent-strong: #d76bff;
+  --accent-soft: rgba(193, 59, 255, 0.1);
+  --accent-glow: rgba(193, 59, 255, 0.4);
+  --accent-foreground: #0a0610;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-deep: var(--background-deep);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-foreground: var(--accent-foreground);
+  --font-display: var(--font-heebo), system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-heebo), system-ui, -apple-system, sans-serif;
+}
+
+* {
+  border-color: var(--border);
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-heebo), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.font-display {
+  font-family: var(--font-heebo), system-ui, -apple-system, sans-serif;
+  font-feature-settings: "liga", "kern";
+}
+
+/* ----- neon text + glow helpers ----- */
+.neon-gradient {
+  background: linear-gradient(100deg, var(--accent-2), var(--accent) 55%, #6b8bff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.neon-glow {
+  text-shadow:
+    0 0 14px rgba(193, 59, 255, 0.55),
+    0 0 40px rgba(255, 59, 212, 0.35);
+}
+
+.ring-glow {
+  box-shadow: 0 0 40px -8px var(--accent-glow);
+}
+
+/* ----- keyframes ----- */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-slow {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounce-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes word-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(60%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes eq-bounce {
+  0%,
+  100% {
+    transform: scaleY(0.28);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes spin-disc {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes float-spark {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(var(--spark-tx, 30px), var(--spark-ty, -160px), 0) scale(0.3);
+    opacity: 0;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out both;
+}
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out both;
+}
+.animate-fade-in-slow {
+  animation: fade-in-slow 1.6s ease-out both;
+}
+.animate-bounce-slow {
+  animation: bounce-slow 2.2s ease-in-out infinite;
+}
+.animate-pulse-ring {
+  animation: pulse-ring 1.6s ease-out infinite;
+}
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+.animate-marquee-fast {
+  animation: marquee 22s linear infinite;
+}
+.animate-glow-pulse {
+  animation: glow-pulse 6s ease-in-out infinite;
+}
+.animate-spin-disc {
+  animation: spin-disc 8s linear infinite;
+}
+.animate-spark {
+  animation: float-spark var(--spark-dur, 7s) ease-in-out var(--spark-delay, 0s) infinite;
+}
+
+/* equalizer bar — controlled via --eq-dur / --eq-delay inline vars */
+.eq-bar {
+  transform-origin: bottom;
+  animation: eq-bounce var(--eq-dur, 0.9s) ease-in-out var(--eq-delay, 0s) infinite;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #160d20 0%, #211530 50%, #160d20 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(190, 130, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(190, 130, 255, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.bg-grid-fade {
+  -webkit-mask-image: radial-gradient(ellipse at center, black 35%, transparent 75%);
+  mask-image: radial-gradient(ellipse at center, black 35%, transparent 75%);
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.word-reveal-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.word-reveal-mask > span {
+  display: inline-block;
+  animation: word-reveal 0.9s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+
+input,
+textarea,
+button {
+  font-family: inherit;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+button:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 2px;
+}
