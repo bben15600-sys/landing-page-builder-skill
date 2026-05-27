@@ -3,9 +3,10 @@ const u = (id: string, w = 1600) =>
 
 export const siteConfig = {
   brand: {
-    nameEn: "DJ KEVIN",
-    nameHe: "די.ג'יי קווין",
+    nameEn: "DJ KEVIN OFORIA",
+    nameHe: "די.ג'יי קווין אופוריה",
     suffix: "WEDDINGS & EVENTS",
+    logo: "/brand/logo.png",
   },
   ownerName: "קווין",
   tagline: "די.ג'יי לחתונות ואירועים",
@@ -68,7 +69,7 @@ export const siteConfig = {
   ],
 
   marquee: [
-    "DJ KEVIN",
+    "DJ KEVIN OFORIA",
     "OPEN FORMAT",
     "חתונות · אירועים",
     "PEAK HOUR ENERGY",

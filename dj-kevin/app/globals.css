@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0610;
-  --background-deep: #050308;
-  --foreground: #f6f0ff;
-  --muted: #9a86b8;
-  --muted-foreground: #c7b9de;
-  --border: rgba(190, 130, 255, 0.12);
-  --border-strong: rgba(190, 130, 255, 0.32);
-  --card: #140b1f;
-  --card-hover: #1b1029;
-  --accent: #c13bff;
-  --accent-2: #ff3bd4;
-  --accent-strong: #d76bff;
-  --accent-soft: rgba(193, 59, 255, 0.1);
-  --accent-glow: rgba(193, 59, 255, 0.4);
-  --accent-foreground: #0a0610;
+  --background: #120a14;
+  --background-deep: #0a050b;
+  --foreground: #fdf3ee;
+  --muted: #b495a0;
+  --muted-foreground: #ddc7c4;
+  --border: rgba(255, 120, 60, 0.14);
+  --border-strong: rgba(255, 120, 60, 0.34);
+  --card: #1d0f18;
+  --card-hover: #271421;
+  --accent: #ff5a1f;
+  --accent-2: #29c5ff;
+  --accent-strong: #ff7a3d;
+  --accent-soft: rgba(255, 90, 31, 0.12);
+  --accent-glow: rgba(255, 90, 31, 0.4);
+  --accent-foreground: #120a14;
 }
 
 @theme inline {
@@ -72,7 +72,7 @@ html {
 
 /* ----- neon text + glow helpers ----- */
 .neon-gradient {
-  background: linear-gradient(100deg, var(--accent-2), var(--accent) 55%, #6b8bff);
+  background: linear-gradient(100deg, #ff3d3d, #ff6a1f 45%, #29c5ff);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -80,8 +80,8 @@ html {
 
 .neon-glow {
   text-shadow:
-    0 0 14px rgba(193, 59, 255, 0.55),
-    0 0 40px rgba(255, 59, 212, 0.35);
+    0 0 14px rgba(255, 90, 31, 0.5),
+    0 0 40px rgba(41, 197, 255, 0.3);
 }
 
 .ring-glow {

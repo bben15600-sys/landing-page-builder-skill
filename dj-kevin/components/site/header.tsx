@@ -8,6 +8,7 @@ import { siteConfig } from "./site-config";
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [logoOk, setLogoOk] = useState(true);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -26,17 +27,25 @@ export function Header() {
       )}
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8 flex items-center justify-between h-16 sm:h-18">
-        <a
-          href="#top"
-          className="flex flex-col leading-none group"
-          aria-label="ראשי"
-        >
-          <span className="font-display text-lg sm:text-xl font-extrabold tracking-wider neon-gradient">
-            {siteConfig.brand.nameEn}
-          </span>
-          <span className="text-[10px] tracking-[0.35em] text-muted-foreground uppercase mt-0.5">
-            {siteConfig.brand.suffix}
-          </span>
+        <a href="#top" className="flex items-center gap-3 group" aria-label="ראשי">
+          {logoOk ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={siteConfig.brand.logo}
+              alt={siteConfig.brand.nameEn}
+              className="h-9 sm:h-11 w-auto"
+              onError={() => setLogoOk(false)}
+            />
+          ) : (
+            <span className="flex flex-col leading-none">
+              <span className="font-display text-lg sm:text-xl font-extrabold tracking-wider neon-gradient">
+                {siteConfig.brand.nameEn}
+              </span>
+              <span className="text-[10px] tracking-[0.35em] text-muted-foreground uppercase mt-0.5">
+                {siteConfig.brand.suffix}
+              </span>
+            </span>
+          )}
         </a>
 
         <nav className="hidden md:flex items-center gap-7">

@@ -22,14 +22,14 @@ export function Hero() {
         className="absolute -top-1/4 right-1/2 translate-x-1/2 h-[80vh] w-[80vh] rounded-full blur-[120px] animate-glow-pulse pointer-events-none"
         style={{
           background:
-            "radial-gradient(circle, rgba(193,59,255,0.45), rgba(255,59,212,0.18) 45%, transparent 70%)",
+            "radial-gradient(circle, rgba(255,90,31,0.42), rgba(255,61,61,0.18) 45%, transparent 70%)",
         }}
       />
       <div
         className="absolute bottom-0 left-0 h-[40vh] w-[40vh] rounded-full blur-[120px] opacity-60 pointer-events-none"
         style={{
           background:
-            "radial-gradient(circle, rgba(107,139,255,0.35), transparent 70%)",
+            "radial-gradient(circle, rgba(41,197,255,0.35), transparent 70%)",
         }}
       />
 
@@ -79,11 +79,20 @@ export function Hero() {
         </p>
 
         <h1
-          className="font-display font-black leading-[0.92] animate-fade-in-up"
+          className="font-display font-black leading-[0.9] animate-fade-in-up"
           dir="ltr"
         >
-          <span className="block text-6xl sm:text-8xl md:text-[9rem] lg:text-[11rem] neon-gradient neon-glow tracking-tight">
+          <span className="block text-6xl sm:text-8xl md:text-[8.5rem] lg:text-[10rem] neon-gradient neon-glow tracking-tight">
             DJ KEVIN
+          </span>
+          <span
+            className="block text-5xl sm:text-7xl md:text-[6.5rem] lg:text-[7.5rem] font-extrabold tracking-[0.06em] mt-1"
+            style={{
+              color: "var(--accent-2)",
+              textShadow: "0 0 22px rgba(41,197,255,0.5)",
+            }}
+          >
+            OFORIA
           </span>
         </h1>
 
