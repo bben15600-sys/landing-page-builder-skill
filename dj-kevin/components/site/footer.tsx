@@ -17,7 +17,7 @@ export function Footer() {
               </span>
             </div>
             <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
-              די.ג'יי לחתונות ואירועים. אנרגיה, קריאת קהל והפקה — רחבה שלא
+              די.ג׳יי לחתונות ואירועים. אנרגיה, קריאת קהל והפקה — רחבה שלא
               מתרוקנת.
             </p>
           </div>
@@ -82,7 +82,7 @@ export function Footer() {
 
         <div className="pt-8 border-t border-border flex flex-wrap items-center justify-between gap-4 text-xs text-muted-foreground">
           <p>
-            די.ג'יי והפקה ·{" "}
+            די.ג׳יי והפקה ·{" "}
             <span className="text-foreground">{siteConfig.brand.nameEn}</span>
           </p>
           <p>

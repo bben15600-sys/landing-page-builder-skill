@@ -1,0 +1,24 @@
+name: Dependency security floor
+
+on:
+  pull_request:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  floor:
+    name: next and sharp stay patched
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Fail if next or sharp is below the patched floor
+        run: node scripts/check-dependency-floor.mjs

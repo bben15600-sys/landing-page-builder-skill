@@ -1,24 +1,36 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+
+const FINE_POINTER = "(hover: hover) and (pointer: fine)";
+
+function subscribeFinePointer(onChange: () => void) {
+  const query = window.matchMedia(FINE_POINTER);
+  query.addEventListener("change", onChange);
+  return () => query.removeEventListener("change", onChange);
+}
+
+function finePointerEnabled() {
+  return window.matchMedia(FINE_POINTER).matches;
+}
 
 export function CustomCursor() {
   const dotRef = useRef<HTMLDivElement | null>(null);
   const ringRef = useRef<HTMLDivElement | null>(null);
-  const [enabled, setEnabled] = useState(false);
+  const enabled = useSyncExternalStore(
+    subscribeFinePointer,
+    finePointerEnabled,
+    () => false,
+  );
   const [variant, setVariant] = useState<"default" | "hover" | "view">(
     "default",
   );
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const isFine =
-      window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    if (!isFine) return;
-    setEnabled(true);
+    if (!enabled) return;
     document.body.classList.add("custom-cursor");
     return () => document.body.classList.remove("custom-cursor");
-  }, []);
+  }, [enabled]);
 
   useEffect(() => {
     if (!enabled) return;

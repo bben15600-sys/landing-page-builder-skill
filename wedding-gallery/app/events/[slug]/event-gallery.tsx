@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { Camera, Download, Heart, Loader2, Search, X } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { detectFaceFromFile, loadFaceModels } from "@/lib/face";
@@ -8,6 +8,41 @@ import { cn } from "@/lib/utils";
 import { EventLightbox, type LightboxItem } from "./event-lightbox";
 
 type Tab = "all" | "favorites" | "mine";
+
+function readFavoriteIds(key: string) {
+  try {
+    return localStorage.getItem(key) ?? "";
+  } catch {
+    return "";
+  }
+}
+
+function parseFavoriteIds(raw: string) {
+  if (!raw) return new Set<string>();
+  try {
+    const parsed = JSON.parse(raw) as unknown;
+    if (!Array.isArray(parsed)) return new Set<string>();
+    return new Set(parsed.filter((id): id is string => typeof id === "string"));
+  } catch {
+    return new Set<string>();
+  }
+}
+
+function subscribeFavorites(key: string) {
+  return (onStoreChange: () => void) => {
+    const eventName = `favorites:${key}`;
+    const onCustom = () => onStoreChange();
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === key || event.key === null) onStoreChange();
+    };
+    window.addEventListener(eventName, onCustom);
+    window.addEventListener("storage", onStorage);
+    return () => {
+      window.removeEventListener(eventName, onCustom);
+      window.removeEventListener("storage", onStorage);
+    };
+  };
+}
 
 export function EventGallery({
   eventId,
@@ -22,30 +57,30 @@ export function EventGallery({
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [tab, setTab] = useState<Tab>("all");
-  const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [matches, setMatches] = useState<Set<string> | null>(null);
   const [searching, setSearching] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
   const [zipping, setZipping] = useState<{ done: number; total: number } | null>(null);
 
-  useEffect(() => {
-    try {
-      const raw = localStorage.getItem(favKey);
-      if (raw) setFavorites(new Set(JSON.parse(raw) as string[]));
-    } catch {}
-  }, [favKey]);
+  const subscribe = useMemo(() => subscribeFavorites(favKey), [favKey]);
+  const rawFavorites = useSyncExternalStore(
+    subscribe,
+    () => readFavoriteIds(favKey),
+    () => "",
+  );
+  const favorites = useMemo(() => parseFavoriteIds(rawFavorites), [rawFavorites]);
 
   function toggleFavorite(id: string) {
-    setFavorites((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      try {
-        localStorage.setItem(favKey, JSON.stringify([...next]));
-      } catch {}
-      return next;
-    });
+    const next = new Set(favorites);
+    if (next.has(id)) next.delete(id);
+    else next.add(id);
+    try {
+      localStorage.setItem(favKey, JSON.stringify([...next]));
+    } catch {
+      return;
+    }
+    window.dispatchEvent(new Event(`favorites:${favKey}`));
   }
 
   const visible = useMemo(() => {
