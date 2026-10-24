@@ -161,10 +161,12 @@ Ask the user for everything in "Required Information from User" above. If logo n
 
 ### Step 2: Bootstrap Next.js Project
 ```bash
-npx create-next-app@latest <project-name> --typescript --tailwind --app --no-src-dir --turbopack --import-alias "@/*"
+npx create-next-app@16.4.1 <project-name> --typescript --tailwind --app --no-src-dir --turbopack --import-alias "@/*"
 cd <project-name>
 npm install lucide-react @base-ui-components/react clsx tailwind-merge class-variance-authority pillow
 ```
+
+`bootstrap.sh` pins this create-next-app release and writes npm overrides so `next` stays on 16.4.1 or newer and `sharp` stays on 0.35.5. That is the patched floor for GHSA-2464-fhr4-w9xw / CVE-2026-96889 and GHSA-673q-mjm6-r5xr. Copy `scripts/check-dependency-floor.mjs` and `.github/workflows/dependency-floor.yml` into the new project so CI fails if those versions drop.
 
 Add shadcn:
 ```bash

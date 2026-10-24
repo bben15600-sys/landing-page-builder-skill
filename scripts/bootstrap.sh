@@ -23,7 +23,8 @@ if [ ! -d "$SKILL_DIR/templates" ]; then
 fi
 
 echo "==> Creating Next.js 16 project: $NAME"
-npx --yes create-next-app@latest "$NAME" \
+# 16.4.1 is the patched release for GHSA-2464-fhr4-w9xw / GHSA-673q-mjm6-r5xr.
+npx --yes create-next-app@16.4.1 "$NAME" \
   --typescript \
   --tailwind \
   --app \
@@ -41,6 +42,10 @@ npm install \
   clsx \
   tailwind-merge \
   class-variance-authority
+
+echo "==> Pinning patched next/sharp and transitive security overrides"
+node "$SKILL_DIR/scripts/apply-security-overrides.mjs"
+npm install
 
 echo "==> Initializing shadcn"
 npx --yes shadcn@canary init -d
@@ -72,6 +77,9 @@ done
 # .github/workflows
 mkdir -p .github/workflows
 cp "$T/.github/workflows/deploy.template.yml" .github/workflows/deploy.yml
+cp "$T/.github/workflows/dependency-floor.template.yml" .github/workflows/dependency-floor.yml
+mkdir -p scripts
+cp "$SKILL_DIR/scripts/check-dependency-floor.mjs" scripts/check-dependency-floor.mjs
 
 # CLAUDE.md
 [ -f "$T/CLAUDE.template.md" ] && cp "$T/CLAUDE.template.md" CLAUDE.md
